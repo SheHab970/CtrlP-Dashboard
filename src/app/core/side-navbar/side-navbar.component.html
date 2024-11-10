@@ -1,1 +1,75 @@
-<p>side-navbar works!</p>
+<nav class="sidebar col-2" [ngClass]="{'sidr-nav-open':menuStatus}">
+  <header>
+    <div class="image-text">
+      <span class="image d-flex align-items-center text-light">
+        <img src="./assets/svg/logo (1).svg" alt="logo">
+      </span>
+    </div>
+    <div class="menu-toggel" (click)="SindeNavToggle()">
+      <i class="fa-solid fa-bars icon"></i>
+    </div>
+  </header>
+
+  <div class="menu-bar d-flex flex-column justify-content-between">
+    <div class="menu">
+      <ul class="menu-links list-unstyled d-flex flex-column gap-3">
+        <li class="nav-link">
+          <a href="#" routerLinkActive="link-active">
+            <!-- icon  -->
+            <i class="fa-sharp-duotone fa-solid fa-users icon"></i>
+            <span class="text nav-text">Users</span>
+          </a>
+          <span class="title">Users</span>
+        </li>
+        <li class="nav-link" routerLinkActive="link-active">
+          <a href="#">
+            <!-- icon  -->
+            <i class="fa-solid fa-box-archive icon"></i>
+            <span class="text nav-text">Products</span>
+          </a>
+          <span class="title">Products</span>
+        </li>
+        <li class="nav-link">
+          <a routerLink="orders" routerLinkActive="link-active">
+            <!-- icon  -->
+            <i class="fa-solid fa-cart-shopping icon"></i>
+            <span class="text nav-text">Orders</span>
+          </a>
+          <span class="title">Orders</span>
+        </li>
+        <li class="nav-link">
+          <a href="#" routerLinkActive="link-active">
+            <!-- icon  -->
+            <i class="fa-solid fa-envelope icon"></i>
+            <span class="text nav-text">Messages</span>
+          </a>
+          <span class="title">Messages</span>
+        </li>
+        <li class="nav-link">
+          <a href="#" routerLinkActive="link-active">
+            <!-- icon  -->
+            <i class="fa-solid fa-sliders icon"></i>
+            <span class="text nav-text">Service</span>
+          </a>
+          <span class="title">Service</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="profile-content">
+
+      <div class="profile">
+        <a href="#" routerLinkActive="link-active">
+          <div class="profile_detalis">
+            <!-- icon  -->
+            <i class="fa-solid fa-user justify-content-end px-3 fs-2 icon"></i>
+            <div>
+              <span class="text nav-text">Admin</span>
+            </div>
+          </div>
+        </a>
+        <i class="fa-solid fa-arrow-right-from-bracket icon" id="log-out"></i>
+      </div>
+    </div>
+  </div>
+</nav>
