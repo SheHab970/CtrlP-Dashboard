@@ -1,11 +1,13 @@
 <div class="row layaut m-0 d-flex flex-column">
-    
+
     <main class="row m-0 p-0 layaut">
         <div class="col-2 side-nav" [ngClass]="{'app-side-nav-open':sideNavStatus}">
-            <app-side-navbar (sindeNavToggled)="sideNavStatus = $event"/>
+            <app-side-navbar (sindeNavToggled)="sideNavStatus = $event" />
         </div>
         <div class="col-10 display-area" [ngClass]="{'display-area-shrink': sideNavStatus}">
-            <router-outlet/>
+            <router-outlet />
         </div>
     </main>
+
+
 </div>
