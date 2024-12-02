@@ -1,0 +1,189 @@
+.order-details{
+    padding: 2rem;
+    .order{
+        background-color: var(--secondarybackgroundColor);
+        padding: 15px 18px;
+        border-radius: 15px;
+        .head{
+            .header{
+                h1{
+                    font-size: 30px;
+                    color: white;
+                }
+                span{
+                    font-size: 33px;
+                    color: var(--MainColor);
+                }
+            }
+            .content{
+                .date{
+                    i{
+                        font-size: 20px;
+                        color: var(--MainColor);
+                    }
+                    p{
+                        color: var(--ParagraphColor);
+                    }
+                }
+                .option{
+                    .dropdownMenue{
+                        button:hover{
+                            background-color: #bdbdbd;
+                        }
+                    }
+                }
+            }
+        }
+        .informations{
+            padding: 15px 0px;
+            .customerInfo{
+                padding: 5px 0; 
+                .card{
+                    padding: 18px;
+                    width: 100%;
+                    height: 190px;
+                    background-color: var(--secondarybackgroundColor);
+                    border-radius: 10px;
+                    border: 1px solid var(--backgroundColor);
+                    box-shadow: 1px 2px 5px 0px var(--backgroundColor);
+                    .icon{
+                        width: 20%;
+                        i{
+                            font-size: 32px;
+                            color: var(--MainColor);
+                        }
+                    }
+                    .content{
+                        width: 80%;
+                        h2{
+                            color: white;
+                            font-size: 25px;
+                            font-weight: 600;
+                        }
+                        p{
+                            color: var(--ParagraphColor);
+                            font-weight: 200;
+                            margin-bottom: 5px;
+                        }
+                    }
+                }
+            }
+            .paymentInfo{
+                margin-top: 20px;
+                .card{
+                    padding: 10px;
+                    width: 33%;
+                    height: 190px;
+                    border-radius: 10px;
+                    background-color: var(--secondarybackgroundColor);
+                    border: 1px solid var(--backgroundColor);
+                    box-shadow: 1px 2px 5px 0px var(--backgroundColor);
+                    // .icon{
+                    //     width: 20%;
+                    //     i{
+                    //         font-size: 32px;
+                    //         color: var(--MainColor);
+                    //     }
+                    // }
+                    .content{
+                        width: 100%;
+                        padding: 5px;
+                        h2{
+                            color: white;
+                            font-size: 25px;
+                            font-weight: 600;
+                        }
+                        p{
+                            color: var(--ParagraphColor);
+                            font-weight: 200;
+                            margin-bottom: 5px;
+                            padding-left: 10px;
+                        }
+                    }
+                }
+                .note{
+                    width: 67%;
+                    h2{
+                        color: white;
+                        font-size: 25px;
+                        font-weight: 600;
+                    }
+                    textarea{
+                        width: 100%;
+                        height: 142px;
+                        border-radius: 10px;
+                        padding: 10px;
+                        outline: none;
+                        color: var(--ParagraphColor);
+                        background-color: var(--secondarybackgroundColor);
+                        border: 1px solid var(--backgroundColor);
+                        box-shadow: 1px 2px 5px 0px var(--backgroundColor);
+                    }
+                }
+            }
+        }
+    }
+    .products{
+        margin-top: 30px;
+        background-color: var(--secondarybackgroundColor);
+        padding: 15px 2px 2px;
+        border-radius: 15px;
+        .header{
+            padding: 10px 18px;
+            h1{
+                font-size: 30px;
+                color: white;
+            }
+        }
+        .Order-products{
+            .products-table{
+                .product{
+                    background-color: var(--backgroundColor);
+                  }
+                  tr:nth-child(odd){
+                    background-color: var(--secondarybackgroundColor);
+                  }
+                  th{
+                    background-color: var(--backgroundColor);
+                    color: var(--MainColor);
+                    font-size: 20px;
+                    text-align: center;
+                  }
+                  td{
+                    text-align: center;
+                    color: var(--ParagraphColor);
+                  }
+            }
+            .resit{
+                padding: 30px 20px;
+                gap: 6rem;
+                .service{
+                    p{
+                        color: var(--ParagraphColor);
+                        font-size: 18px;
+                        font-weight: 300;
+                    }
+                    h4{
+                        color: var(--MainColor);
+                        font-size: 22px;
+                        font-weight: 800;
+                        padding: 5px 10px;
+                    }
+                }
+                .peice{
+                    p{
+                        color: var(--ParagraphColor);
+                        font-size: 18px;
+                        font-weight: 300;
+                    }
+                    h4{
+                        color: var(--MainColor);
+                        font-size: 22px;
+                        font-weight: 800;
+                        padding: 5px 10px;
+                    }
+                }
+            }
+        }
+    }
+}

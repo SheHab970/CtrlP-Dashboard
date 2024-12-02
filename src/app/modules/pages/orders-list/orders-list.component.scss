@@ -1,4 +1,42 @@
-p {
-  color: white;
-  padding: 10px;
+.order_section{
+  background-color: var(--backgroundColor);
+  padding: 5px;
+  .section_head{
+    padding: 15px 5px;
+    .search_component{
+      width: 20%;
+      // height: 90%;
+    }
+  }
+  .order_table{
+    .Order{
+      background-color: var(--backgroundColor);
+      cursor: pointer;
+    }
+    .Order:hover{
+      opacity: 0.7;
+    }
+    tr:nth-child(odd){
+      background-color: #202020;
+    }
+    th{
+      background-color: var(--backgroundColor);
+      color: var(--MainColor);
+      font-size: 20px;
+      text-align: center;
+    }
+    td{
+      text-align: center;
+      color: var(--ParagraphColor);
+    }
+    .action_icons{
+      i{
+        cursor: pointer;
+        font-size: 22px;
+      }
+      .deleteIcon i{
+        color: #af2f2fe0;
+      }
+    }
+  }
 }

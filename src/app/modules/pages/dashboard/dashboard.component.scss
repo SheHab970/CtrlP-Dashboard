@@ -4,6 +4,7 @@
 }
 .display-area{
     position: absolute;
+    padding: 0;
     width: calc(100% - 78px);
     left: 78px;
     transition: 250ms all ease-in-out;
