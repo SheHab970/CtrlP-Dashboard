@@ -1,0 +1,20 @@
+.search {
+    background: var(--InputsbackgroundColor);
+    border-radius: 100px;
+    cursor: pointer;
+  
+    input {
+      border: none;
+      outline: none;
+      padding: 5px 8px;
+      background-color: transparent;
+    }
+    
+    .icon{
+        i{
+            color: var(--MainColor);
+            font-size: 22px;
+        }
+    }
+  
+  }

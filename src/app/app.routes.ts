@@ -22,6 +22,13 @@ export const routes: Routes = [
           ),
       },
       {
+          path: 'orders/order-detials',
+          loadComponent: () =>
+            import('./modules/pages/order-details/order-details.component').then(
+              (c) => c.OrderDetailsComponent
+            ),
+      },
+      {
         path: 'Product',
         loadComponent: () =>
           import('./modules/pages/products-list/products-list.component').then(
