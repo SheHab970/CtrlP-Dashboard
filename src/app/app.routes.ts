@@ -21,6 +21,15 @@ export const routes: Routes = [
             (c) => c.OrdersListComponent
           ),
       },
+
+      {
+        path: 'addProduct',
+        loadComponent: () =>
+          import('./modules/pages/add-product/add-product.component').then(
+            (c) => c.AddProductComponent
+          ),
+      },
+
       {
           path: 'orders/order-detials',
           loadComponent: () =>
@@ -33,6 +42,36 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./modules/pages/products-list/products-list.component').then(
             (c) => c.ProductsListComponent
+          ),
+      },
+
+      {
+        path: 'user',
+        loadComponent: () =>
+          import('./modules/pages/users/users.component').then(
+            (c) => c.UsersComponent
+          ),
+      },
+      {
+        path: 'categories',
+        loadComponent: () =>
+          import('./modules/pages/categories/categories.component').then(
+            (c) => c.CategoriesComponent
+          ),
+      },
+      {
+        path: 'addCategory',
+        loadComponent: () =>
+          import('./modules/pages/add-category/add-category.component').then(
+            (c) => c.AddCategoryComponent
+          ),
+      },
+
+      {
+        path: 'massage',
+        loadComponent: () =>
+          import('./modules/pages/massage/massage.component').then(
+            (c) => c.MassageComponent
           ),
       },
     ],
