@@ -18,6 +18,64 @@
 
 body {
   height: 100vh;
-  background-color: var(--backgroundColor) !important;
-  color: white !important;
+  background-color: #f1f4fb !important;
+  color: #1a1a1a !important;
+}
+.p-paginator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  border: none;
+}
+
+.p-datatable .p-datatable-footer {
+  border: 1px solid #e5e7eb;
+  border-width: 0 0 1px 0;
+  // padding: 1rem 0.5px;
+  font-weight: 700;
+}
+
+table {
+  /* outline: 1px solid #0c9 !important; */
+  border: none;
+}
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+  border-block-end: 0.5px;
+  border-color: inherit;
+  // border-radius: 30px;
+  border-width: 1px;
+  border-color: #d1d1d1;
+  // border: none;
+
+  background-color: #ffffff;
+}
+
+/* Add this CSS to create space between each table row */
+.space {
+  margin-bottom: 90px; /* Adds space between rows */
+}
+
+.p-datatable-gridlines td,
+th {
+  padding-block: 30px;
+}
+.w-80 {
+  width: 85%;
+  border-radius: 20px !important;
+}
+
+.btn-main {
+  border-radius: 10px;
+  background-color: #f5c33c;
+  color: white;
+  border: none;
+  font-size: 14px;
+  padding: 8px 10px;
+  margin: 20px;
 }

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { ProductService } from './../../../core/services/product.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
-import {
-  ProductService,
-  Product,
-} from '../../../core/services/product.service';
-
+import { MessageService, SelectItem } from 'primeng/api';
+import { list } from '../../../core/interface/product';
+import { ToastModule } from 'primeng/toast';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -20,37 +23,50 @@ import {
     ButtonModule,
     RatingModule,
     TagModule,
+    ToastModule,
+    DropdownModule,
+    InputTextModule,
+
+    RouterModule,
   ],
+  providers: [MessageService], // Combine providers into one array
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss'],
 })
 export class ProductsListComponent implements OnInit {
-  products: Product[] = [];
+  constructor(private router: Router) {}
+  statuses!: SelectItem[];
+  list: list[] = [];
+  ProductService = inject(ProductService);
+  messageService = inject(MessageService);
 
-  constructor(private productService: ProductService) {}
+  ngOnInit(): void {
+    this.ProductService.getProductlist().subscribe((data: any) => {
+      this.list = data.data.map((product: any) => ({
+        ...product,
+        inventoryStatus: this.getDefaultStatus(product), // Assign a status
+      }));
 
-  ngOnInit() {
-    // Fetch products from the service
-    this.loadProducts();
-  }
-
-  loadProducts() {
-    this.productService.getProducts().subscribe((data) => {
-      this.products = data;
-      console.log(this.products);
+      this.statuses = [
+        { label: 'In Stock', value: 'INSTOCK' },
+        { label: 'Low Stock', value: 'LOWSTOCK' },
+        { label: 'Out of Stock', value: 'OUTOFSTOCK' },
+      ];
     });
   }
 
-  getSeverity(
-    status: string
-  ):
-    | 'success'
-    | 'secondary'
-    | 'info'
-    | 'warning'
-    | 'danger'
-    | 'contrast'
-    | undefined {
+  getDefaultStatus(product: any): string {
+    // Example logic for assigning status based on price (customize as needed)
+    if (product.price > 200) {
+      return 'INSTOCK';
+    } else if (product.price > 50) {
+      return 'LOWSTOCK';
+    } else {
+      return 'OUTOFSTOCK';
+    }
+  }
+
+  getSeverity(status: string) {
     switch (status) {
       case 'INSTOCK':
         return 'success';
@@ -59,11 +75,11 @@ export class ProductsListComponent implements OnInit {
       case 'OUTOFSTOCK':
         return 'danger';
       default:
-        return undefined;
+        return 'secondary';
     }
   }
 
-  refreshProducts() {
-    this.loadProducts();
+  addProduct() {
+    this.router.navigate(['/dashboard/addProduct']);
   }
 }

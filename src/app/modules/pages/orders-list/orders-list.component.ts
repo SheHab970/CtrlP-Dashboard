@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
@@ -16,9 +16,10 @@ import { RouterLink, RouterModule } from '@angular/router';
     TagModule,
     FormsModule,
     RouterLink,
-    RouterModule],
+    RouterModule,
+  ],
   templateUrl: './orders-list.component.html',
-  styleUrl: './orders-list.component.scss'
+  styleUrl: './orders-list.component.scss',
 })
 export class OrdersListComponent {
   products: any[] = [
@@ -48,5 +49,4 @@ export class OrdersListComponent {
     {},
     {},
   ];
-  
 }
