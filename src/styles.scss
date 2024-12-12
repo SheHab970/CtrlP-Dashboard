@@ -18,7 +18,7 @@
 
 body {
   height: 100vh;
-  background-color: #f1f4fb !important;
+  background-color: var(--backgroundColor) !important;
   color: #1a1a1a !important;
 }
 .p-paginator {
@@ -30,7 +30,7 @@ body {
 }
 
 .p-datatable .p-datatable-footer {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--secondarybackgroundColor);
   border-width: 0 0 1px 0;
   // padding: 1rem 0.5px;
   font-weight: 700;
@@ -46,14 +46,9 @@ tfoot,
 tr,
 td,
 th {
-  border-block-end: 0.5px;
-  border-color: inherit;
-  // border-radius: 30px;
-  border-width: 1px;
-  border-color: #d1d1d1;
   // border: none;
 
-  background-color: #ffffff;
+  background-color: var(--backgroundColor);
 }
 
 /* Add this CSS to create space between each table row */
