@@ -18,8 +18,9 @@
 
 body {
   height: 100vh;
-  background-color: var(--backgroundColor) !important;
-  color: #1a1a1a !important;
+  background-color: black !important;
+  // background-color: #b3b3b3 !important;
+  // color: white;
 }
 .p-paginator {
   display: flex;
@@ -70,7 +71,68 @@ th {
   background-color: #f5c33c;
   color: white;
   border: none;
-  font-size: 14px;
-  padding: 8px 10px;
+  font-size: 15px;
+  padding: 8px 17px;
   margin: 20px;
+}
+
+.listSection {
+  background-color: var(--backgroundColor);
+  padding: 5px;
+  .InnerSection {
+    padding: 15px 5px;
+    .search_component {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 75%;
+    }
+  }
+  .ListTable {
+    .list {
+      background-color: var(--backgroundColor);
+      cursor: pointer;
+    }
+    .list:hover {
+      opacity: 0.7;
+    }
+    tr:nth-child(odd) {
+      background-color: #202020;
+    }
+    th {
+      background-color: var(--backgroundColor);
+      color: var(--MainColor);
+      font-size: 20px;
+      text-align: center;
+    }
+    td {
+      text-align: center;
+      color: var(--ParagraphColor);
+    }
+  }
+}
+
+/// addd---editt ---comp
+///
+///
+
+.addProduct {
+  border-radius: 22px;
+
+  color: white;
+  padding: 40px;
+  font-size: 20px;
+  box-shadow: 1px 1px 37px 13px rgba(187, 184, 184, 0.4);
+  border-radius: 10px;
+}
+::placeholder {
+  color: var(--ParagraphColor);
+}
+.addButton {
+  background-color: var(--MainColor);
+
+  cursor: pointer;
+}
+.editButton {
+  cursor: pointer;
 }

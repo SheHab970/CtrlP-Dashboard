@@ -1,44 +1,53 @@
-<div class="card w-80 mx-auto m-5 text-center">
-    <p-table [value]="users" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '60rem'}" [paginator]="true"
-        [rows]="10" [rowsPerPageOptions]="[5, 10, 20]" class="bg">
-        <!-- Table Header -->
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Order</th>
-                <th>Join Date</th>
-                <th>Actions</th>
-            </tr>
-        </ng-template>
+<section class="listSection">
+    <div class="InnerSection d-flex justify-content-center">
+        <div class="search_component">
+            <app-search />
 
-        <!-- Table Body -->
-        <ng-template pTemplate="body" let-user>
-            <tr class="space">
-                <td>{{user.id}}-></td>
-                <td><i class="fa-solid fa-user text-success"></i> :{{ user.name }}</td>
-                <td><i class="fa-solid fa-phone text-warning"></i> :{{ user.phone }}</td>
-                <td>{{ user.order }}</td>
-                <td><i class="fa-solid fa-calendar text-info"></i> :{{ user.orderJoinDate }}</td>
+        </div>
+    </div>
+    <div class="ListTable">
+        <p-table [value]="users" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '60rem'}"
+            [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]" class="bg">
+            <!-- Table Header -->
+            <ng-template pTemplate="header">
+                <tr class="list">
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Order</th>
+                    <th>Join Date</th>
+                    <th>Actions</th>
+                </tr>
+            </ng-template>
 
-                <td>
-                    <div>
-                        <span class="action-icon text-center ps-4" (click)="lockUser(user)">
+            <!-- Table Body -->
+            <ng-template pTemplate="body" let-user>
+                <tr class="space">
+                    <td>{{user.id}}-></td>
+                    <td><i class="fa-solid fa-user text-success"></i> :{{ user.name }}</td>
+                    <td><i class="fa-solid fa-phone text-warning"></i> :{{ user.phone }}</td>
+                    <td>{{ user.order }}</td>
+                    <td><i class="fa-solid fa-calendar text-info"></i> :{{ user.orderJoinDate }}</td>
 
-                            <i *ngIf="!user.lock" class="fa-solid fa-lock-open text-warning" title="Lock User"></i>
-                            <i *ngIf="user.lock" class="fa-solid fa-lock text-danger" title="Unlock User"></i>
-                        </span>
-                    </div>
-                </td>
-            </tr>
-        </ng-template>
+                    <td>
+                        <div>
+                            <span class="action-icon text-center ps-4" (click)="lockUser(user)">
 
-        <!-- Table Summary -->
-        <ng-template pTemplate="summary" class="bg-black">
-            <div class="flex align-items-center justify-content-around">
-                In total, there are {{ users.length }} users.
-            </div>
-        </ng-template>
-    </p-table>
-</div>
+                                <i *ngIf="!user.lock" class="fa-solid fa-lock-open text-warning" title="Lock User"></i>
+                                <i *ngIf="user.lock" class="fa-solid fa-lock text-danger" title="Unlock User"></i>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <!-- Table Summary -->
+            <ng-template pTemplate="summary" class="bg-black">
+                <div class="flex align-items-center justify-content-around">
+                    In total, there are {{ users.length }} users.
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+
+</section>

@@ -14,6 +14,7 @@ export const routes: Routes = [
         (c) => c.DashboardComponent
       ),
     children: [
+      ///orders
       {
         path: 'orders',
         loadComponent: () =>
@@ -23,20 +24,14 @@ export const routes: Routes = [
       },
 
       {
-        path: 'addProduct',
+        path: 'orders/order-detials',
         loadComponent: () =>
-          import('./modules/pages/add-product/add-product.component').then(
-            (c) => c.AddProductComponent
+          import('./modules/pages/order-details/order-details.component').then(
+            (c) => c.OrderDetailsComponent
           ),
       },
 
-      {
-          path: 'orders/order-detials',
-          loadComponent: () =>
-            import('./modules/pages/order-details/order-details.component').then(
-              (c) => c.OrderDetailsComponent
-            ),
-      },
+      // !Product
       {
         path: 'Product',
         loadComponent: () =>
@@ -44,14 +39,22 @@ export const routes: Routes = [
             (c) => c.ProductsListComponent
           ),
       },
-
       {
-        path: 'user',
+        path: 'addProduct',
         loadComponent: () =>
-          import('./modules/pages/users/users.component').then(
-            (c) => c.UsersComponent
+          import('./modules/pages/add-product/add-product.component').then(
+            (c) => c.AddProductComponent
           ),
       },
+      {
+        path: 'Product/editProduct',
+        loadComponent: () =>
+          import('./modules/pages/edit-product/edit-product.component').then(
+            (c) => c.EditProductComponent
+          ),
+      },
+
+      //  *categories
       {
         path: 'categories',
         loadComponent: () =>
@@ -59,6 +62,7 @@ export const routes: Routes = [
             (c) => c.CategoriesComponent
           ),
       },
+
       {
         path: 'addCategory',
         loadComponent: () =>
@@ -66,6 +70,25 @@ export const routes: Routes = [
             (c) => c.AddCategoryComponent
           ),
       },
+
+      {
+        path: 'categories/editCategory',
+        loadComponent: () =>
+          import('./modules/pages/editcat/editcat.component').then(
+            (c) => c.EditcatComponent
+          ),
+      },
+
+      // ^user
+      {
+        path: 'user',
+        loadComponent: () =>
+          import('./modules/pages/users/users.component').then(
+            (c) => c.UsersComponent
+          ),
+      },
+
+      // & massage
 
       {
         path: 'massage',

@@ -16,4 +16,11 @@ export class ProductService {
   getcategories(): Observable<any> {
     return this._http.get(this.baseUrl + 'categories');
   }
+  addProduct(data: object): Observable<any> {
+    return this._http.post('https://ctrl-p.runasp.net/api/Product', data);
+  }
+
+  addCat(data: object): Observable<any> {
+    return this._http.post('https://ctrl-p.runasp.net/api/Category/add', data);
+  }
 }

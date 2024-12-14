@@ -18,3 +18,8 @@
 tr td {
   text-align: center;
 }
+
+.p-datatable-gridlines td,
+th {
+  padding-block: 0px !important;
+}

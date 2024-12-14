@@ -13,6 +13,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { SearchComponent } from '../../../share/componrnts/search/search.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+
 @Component({
   selector: 'app-massage',
   standalone: true,
@@ -26,8 +29,9 @@ import { Router } from '@angular/router';
     ToastModule,
     DropdownModule,
     InputTextModule,
-
     RouterModule,
+    SearchComponent,
+    MultiSelectModule,
   ],
   providers: [MessageService], // Combine providers into one array
   templateUrl: './massage.component.html',
@@ -38,12 +42,22 @@ export class MassageComponent implements OnInit {
   constructor(private router: Router) {}
   statuses!: SelectItem[];
   ProductService = inject(ProductService);
+  cities!: any[];
 
+  selectedCities!: any[];
   ngOnInit(): void {
     this.ProductService.getcategories().subscribe({
       next: (value) => {
         this.Categories = value.data;
       },
     });
+
+    this.cities = [
+      { name: 'New York', code: 'NY' },
+      { name: 'Rome', code: 'RM' },
+      { name: 'London', code: 'LDN' },
+      { name: 'Istanbul', code: 'IST' },
+      { name: 'Paris', code: 'PRS' },
+    ];
   }
 }
