@@ -1,19 +1,13 @@
 <section class="order_section">
     <div class="section_head d-flex justify-content-center">
         <div class="search_component">
-            <app-search/>
+            <app-search />
         </div>
     </div>
     <div class="order_table">
-        <p-table 
-            [value]="products"
-            styleClass="p-datatable-gridlines" 
-            dataKey="id" [tableStyle]="{'min-width': '60rem'}"
-            [paginator]="true"
-            [rows]="11" 
-            [rowsPerPageOptions]="[5, 10, 20] " 
-            class=""
-        >
+        <p-table [value]="products" styleClass="p-datatable-gridlines" dataKey="id"
+            [tableStyle]="{'min-width': '60rem'}" [paginator]="true" [rows]="11" [rowsPerPageOptions]="[5, 10, 20] " a
+            class="">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Tracking ID</th>
@@ -32,11 +26,11 @@
                     <td>18/5/2024</td>
                     <td>$20</td>
                     <!-- <td>{{ order.amount | currency : 'USD' }}</td> -->
-                     <td>Transfer Bank</td>
-                     <td>
-                        <p-tag  [severity]="'success'">Deliverd</p-tag>
-                     </td>
-                     <td>
+                    <td>Transfer Bank</td>
+                    <td>
+                        <p-tag [severity]="'success'">Deliverd</p-tag>
+                    </td>
+                    <td>
                         <div class="action_icons d-flex justify-content-around align-items-center">
                             <div class="editIcon">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -45,7 +39,7 @@
                                 <i class="fa-solid fa-trash"></i>
                             </div>
                         </div>
-                     </td>
+                    </td>
                 </tr>
             </ng-template>
             <!-- <div class="flex-auto">

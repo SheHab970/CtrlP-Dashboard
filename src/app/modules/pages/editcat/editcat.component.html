@@ -4,27 +4,16 @@
 
         <div class="mb-3 text-white">
 
-            <i class="fa-solid fa-right-to-bracket"></i> Type Of Product:
+            <i class="fa-solid fa-right-to-bracket"></i> Type Of Category:
         </div>
 
-
-        <form [formGroup]="addForm" (ngSubmit)="handle()" a>
+        <form>
             <div class="row gy-4">
                 <div class="col-md-12">
                     <div>
 
                         <label for="name">Name:</label>
-                        <input id="name" type="text" class="form-control" placeholder=" Enter Name:"
-                            formControlName="name">
-
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <div>
-
-                        <label for="id">id:</label>
-                        <input id="id" type="text" class="form-control" placeholder=" Enter Name:" formControlName="id">
+                        <input id="name" type="text" class="form-control" placeholder=" Enter Name:">
 
                     </div>
                 </div>
@@ -33,7 +22,7 @@
                 <div class="col-md-12">
                     <div>
 
-                        <label for="img">Product Image:</label>
+                        <label for="img">Category Image:</label>
                         <input id="img" class="form-control" type="file" placeholder=" Choose Product Image:">
 
                     </div>
@@ -41,7 +30,7 @@
             </div>
 
             <button class="form-control mt-5 addButton">
-                ADD:
+                UPDATE:
             </button>
         </form>
 

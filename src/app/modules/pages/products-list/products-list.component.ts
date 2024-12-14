@@ -11,8 +11,10 @@ import { list } from '../../../core/interface/product';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { Dialog } from 'primeng/dialog';
+import { SearchComponent } from '../../../share/componrnts/search/search.component';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -24,10 +26,12 @@ import { Router } from '@angular/router';
     RatingModule,
     TagModule,
     ToastModule,
+    RouterLink,
     DropdownModule,
     InputTextModule,
-
     RouterModule,
+    SearchComponent,
+    Dialog,
   ],
   providers: [MessageService], // Combine providers into one array
   templateUrl: './products-list.component.html',
@@ -65,17 +69,16 @@ export class ProductsListComponent implements OnInit {
       return 'OUTOFSTOCK';
     }
   }
-
   getSeverity(status: string) {
     switch (status) {
       case 'INSTOCK':
-        return 'success';
+        return 'success'; // Green
       case 'LOWSTOCK':
-        return 'warning';
+        return 'warn'; // Yellow (corrected from 'warning')
       case 'OUTOFSTOCK':
-        return 'danger';
+        return 'danger'; // Red
       default:
-        return 'secondary';
+        return 'secondary'; // Default fallback
     }
   }
 
