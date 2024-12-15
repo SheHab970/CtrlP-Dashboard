@@ -8,9 +8,10 @@
         <p-table 
             [value]="products"
             styleClass="p-datatable-gridlines" 
-            dataKey="id" [tableStyle]="{'min-width': '60rem'}"
+            dataKey="id" 
+            [tableStyle]="{'min-width': '60rem'}"
             [paginator]="true"
-            [rows]="11" 
+            [rows]="10" 
             [rowsPerPageOptions]="[5, 10, 20] " 
             class=""
         >
@@ -38,24 +39,13 @@
                      </td>
                      <td>
                         <div class="action_icons d-flex justify-content-around align-items-center">
-                            <div class="editIcon">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </div>
-                            <div class="deleteIcon">
-                                <i class="fa-solid fa-trash"></i>
+                            <div class="showIcon">
+                                <i class="fa-solid fa-eye"></i>
                             </div>
                         </div>
                      </td>
                 </tr>
             </ng-template>
-            <!-- <div class="flex-auto">
-                <p-paginator 
-                    (onPageChange)="onPageChange($event)" 
-                    [first]="first" 
-                    [rows]="rows" 
-                    [totalRecords]="120" 
-                    [rowsPerPageOptions]="[10, 20, 30]" />
-            </div> -->
         </p-table>
     </div>
 </section>

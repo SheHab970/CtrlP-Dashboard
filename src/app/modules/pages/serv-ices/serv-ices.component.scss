@@ -1,0 +1,65 @@
+.services_section{
+    background-color: var(--backgroundColor);
+    padding: 5px;
+    margin-bottom: 50px;
+    .head{
+        gap: 50%;
+        margin: 25px auto;
+        h1{
+            margin: 0;
+            color: var(--MainColor);
+        }
+    }
+    .service_table{
+        .service{
+          background-color: var(--backgroundColor);
+        }
+        tr:nth-child(odd){
+          background-color: #202020;
+        }
+        th{
+          background-color: var(--backgroundColor);
+          color: var(--MainColor);
+          font-size: 20px;
+          text-align: center;
+          width: 20%;
+        }
+        td{
+          text-align: center;
+          color: var(--ParagraphColor);
+        }
+        .action_icons{
+          i{
+            cursor: pointer;
+            font-size: 22px;
+          }
+          .deleteIcon i{
+            color: #af2f2fe0;
+          }
+        }
+        p-table ::ng-deep .p-paginator{
+          background-color: var(--backgroundColor);
+          border: none;
+          position: fixed;
+          bottom: 10px;
+          left: calc(36%);
+          .p-highlight{
+            background-color: var(--secondarybackgroundColor);
+            border-radius: 10px;
+            color: var(--MainColor);
+          }
+          .p-paginator-prev:hover,
+          .p-paginator-next:hover,
+          .p-paginator-last:hover,
+          .p-paginator-first:hover,
+          .p-paginator-page:hover{
+            background-color: var(--secondarybackgroundColor);
+            border-radius: 10px;
+          }
+          .p-dropdown {
+            background-color: var(--secondarybackgroundColor);
+            border: none;
+          }
+        }
+    }
+}

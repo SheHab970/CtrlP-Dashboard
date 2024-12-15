@@ -1,24 +1,53 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { authGuard } from './modules/authentication/guard/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./modules/authentication/pages/login/login.component').then(
+        (c) => c.LoginComponent
+      ),
+  },
+
   {
     path: 'dashboard',
     loadComponent: () =>
       import('./modules/pages/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent
       ),
+      canActivate:[authGuard],
     children: [
+      {
+        path: '',
+        redirectTo: 'user',
+        pathMatch: 'full',
+      },
       {
         path: 'orders',
         loadComponent: () =>
           import('./modules/pages/orders-list/orders-list.component').then(
             (c) => c.OrdersListComponent
+          ),
+      },
+      {
+        path: 'services',
+        loadComponent: () =>
+          import('./modules/pages/serv-ices/serv-ices.component').then(
+            (c) => c.ServIcesComponent
+          ),
+      },
+      {
+        path: 'services/add-service',
+        loadComponent: () =>
+          import('./modules/pages/add-service/add-service.component').then(
+            (c) => c.AddServiceComponent
           ),
       },
 

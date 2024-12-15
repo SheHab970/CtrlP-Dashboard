@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from '../../../share/componrnts/search/search.component';
 import { RouterLink, RouterModule } from '@angular/router';
+import { OrderService } from '../../../core/services/order.service';
+import { log } from 'node:console';
 
 @Component({
   selector: 'app-orders-list',
@@ -21,32 +23,17 @@ import { RouterLink, RouterModule } from '@angular/router';
   templateUrl: './orders-list.component.html',
   styleUrl: './orders-list.component.scss',
 })
-export class OrdersListComponent {
-  products: any[] = [
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ];
+export class OrdersListComponent implements OnInit {
+
+  products: any[] = [];
+
+  constructor(private order_list: OrderService){}
+
+  ngOnInit(): void {
+    this.order_list.getOrders().subscribe((res: any)=>{
+      this.products = res;
+      // console.log('orders',res);
+      
+    });
+  }
 }
