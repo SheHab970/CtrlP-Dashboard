@@ -7,7 +7,12 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -20,11 +25,13 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { MultiSelectModule } from 'primeng/multiselect';
 import Cookies from 'js-cookie';
 import { DropdownModule } from 'primeng/dropdown';
+import { log } from 'console';
 
 @Component({
   selector: 'app-add-product',
   standalone: true,
   imports: [
+    DropdownModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -36,7 +43,6 @@ import { DropdownModule } from 'primeng/dropdown';
     DialogModule,
     SelectButtonModule,
     MultiSelectModule,
-    DropdownModule,
   ],
   providers: [MessageService],
   templateUrl: './add-product.component.html',
@@ -45,114 +51,112 @@ import { DropdownModule } from 'primeng/dropdown';
 export class AddProductComponent implements OnInit {
   ProductService = inject(ProductService);
   messageService = inject(MessageService);
-  cdr = inject(ChangeDetectorRef); // Inject ChangeDetectorRef to manually trigger change detection
+  cdr = inject(ChangeDetectorRef);
 
-  frames: any[] = []; // List of frames for dropdown
-  selectedFrame: any; // Selected frame
-  displayDialog: boolean = false; // Modal visibility flag
-  newFrameName: string = ''; // Input for adding a new frame
+  frames: any[] = [];
+  materials: any[] = [];
+  sizes: any[] = []; // Added sizes array
+  selectedFrame: any;
+  selectedMaterial: any;
+  selectedSize: any; // Added selected size
+  displayFrameDialog: boolean = false;
+  displayMaterialDialog: boolean = false;
+  displaySizeDialog: boolean = false; // For size dialog visibility
+  newFrameName: string = '';
+  newMaterialName: string = '';
+  newSizeName: string = ''; // For size name input
 
   @ViewChild('frameInput') frameInput!: ElementRef;
-
-  private memoryStorage: { [key: string]: any } = {}; // In-memory storage fallback
+  note: any;
 
   ngOnInit() {
-    this.fetchFrames(); // Fetch frames when the component initializes
-    console.log(this.frames);
+    this.fetchFrames();
+    this.fetchMaterials();
+    this.fetchSizes(); // Fetch sizes when the component initializes
   }
 
-  // Fetch the frames list from the API or from cookies (fallback when localStorage is unavailable)
   fetchFrames() {
-    if (this.isLocalStorageAvailable()) {
-      const storedFrames = localStorage.getItem('frames');
-      if (storedFrames) {
-        this.frames = JSON.parse(storedFrames); // Load frames from localStorage
-        this.cdr.detectChanges(); // Manually trigger change detection to update the UI
-      } else {
-        this.ProductService.getFrames().subscribe({
-          next: (data) => {
-            // Update frames list from API and save it to localStorage
-            this.frames = data;
-            localStorage.setItem('frames', JSON.stringify(this.frames));
-            this.cdr.detectChanges(); // Manually trigger change detection to update the UI
-          },
-          error: (err) => {
-            console.error('Error fetching frames:', err);
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Failed to fetch frames. Try again later.',
-            });
-          },
-        });
-      }
-    } else if (Cookies.get('frames')) {
-      // Correct usage of Cookies.get
-      const storedFrames = Cookies.get('frames');
-      if (storedFrames) {
-        this.frames = JSON.parse(storedFrames); // Load frames from cookies
-        this.cdr.detectChanges(); // Manually trigger change detection to update the UI
-      }
-    } else {
-      console.warn(
-        'localStorage and cookies are not available, using fallback storage'
-      );
-      // Fallback: Use in-memory storage
-      const storedFrames = this.memoryStorage['frames'];
-      if (storedFrames) {
-        this.frames = storedFrames;
+    this.ProductService.getFrames().subscribe({
+      next: (data) => {
+        this.frames = data;
         this.cdr.detectChanges();
-      } else {
-        this.ProductService.getFrames().subscribe({
-          next: (data) => {
-            this.frames = data;
-            this.memoryStorage['frames'] = this.frames; // Use in-memory storage
-            this.cdr.detectChanges();
-          },
-          error: (err) => {
-            console.error('Error fetching frames:', err);
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Failed to fetch frames. Try again later.',
-            });
-          },
+      },
+      error: (err) => {
+        console.error('Error fetching frames:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to fetch frames. Try again later.',
         });
+      },
+    });
+  }
+
+  fetchMaterials() {
+    this.ProductService.getMaterials().subscribe({
+      next: (data) => {
+        this.materials = data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error fetching materials:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to fetch materials. Try again later.',
+        });
+      },
+    });
+  }
+
+  fetchSizes() {
+    this.ProductService.getSize().subscribe({
+      next: (data) => {
+        this.sizes = data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error fetching sizes:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to fetch sizes. Try again later.',
+        });
+      },
+    });
+  }
+
+  // Show the frame dialog
+  showFrameDialog() {
+    this.newFrameName = '';
+    this.displayFrameDialog = true;
+    setTimeout(() => {
+      if (this.frameInput) {
+        this.frameInput.nativeElement.focus();
       }
-    }
+    }, 100);
   }
 
-  // Check if localStorage is available in the current environment
-  private isLocalStorageAvailable(): boolean {
-    try {
-      const testKey = 'test';
-      localStorage.setItem(testKey, 'test');
-      localStorage.removeItem(testKey);
-      return true;
-    } catch (e) {
-      return false;
-    }
+  // Show the material dialog
+  showMaterialDialog() {
+    this.newMaterialName = '';
+    this.displayMaterialDialog = true;
   }
 
-  // Add a new frame using the service and store in localStorage or fallback to cookies or memory
+  // Show the size dialog
+  showSizeDialog() {
+    this.newSizeName = '';
+    this.displaySizeDialog = true;
+  }
+
+  // Add a new frame
   addNewFrame() {
     if (this.newFrameName.trim()) {
       const newFrame = { name: this.newFrameName };
-
       this.ProductService.addFrame(newFrame).subscribe({
         next: (data) => {
-          console.log('Frame added:', data);
-          this.frames.push(newFrame); // Add the new frame to the frames array
-
-          if (this.isLocalStorageAvailable()) {
-            localStorage.setItem('frames', JSON.stringify(this.frames)); // Save updated frames to localStorage
-          } else if (Cookies.get('frames')) {
-            Cookies.set('frames', JSON.stringify(this.frames), { expires: 7 }); // Save to cookies
-          } else {
-            this.memoryStorage['frames'] = this.frames; // Save to in-memory storage
-          }
-
-          this.displayDialog = false;
+          this.frames.push(newFrame);
+          this.displayFrameDialog = false;
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -170,7 +174,6 @@ export class AddProductComponent implements OnInit {
         },
       });
     } else {
-      // If no data is entered, show a warning message
       this.messageService.add({
         severity: 'warn',
         summary: 'Warning',
@@ -179,25 +182,83 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  showDialog() {
-    this.newFrameName = ''; // Reset input field
-    this.displayDialog = true; // Show the dialog
-    setTimeout(() => {
-      if (this.frameInput) {
-        this.frameInput.nativeElement.focus(); // Focus on the input field after showing dialog
-      }
-    }, 100);
+  // Add a new material
+  addNewMaterial() {
+    if (this.newMaterialName.trim()) {
+      const newMaterial = { name: this.newMaterialName };
+      this.ProductService.addMaterial(newMaterial).subscribe({
+        next: (data) => {
+          this.materials.push(newMaterial);
+          this.displayMaterialDialog = false;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'New material added successfully!',
+          });
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error adding material:', err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to add material. Please try again.',
+          });
+        },
+      });
+    } else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Warning',
+        detail: 'Please enter a material name before saving.',
+      });
+    }
   }
 
-  onFrameSelect(event: any) {
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Frame Selected',
-      detail: event.value.name,
-    });
+  // Add a new size
+  addNewSize() {
+    if (this.newSizeName.trim()) {
+      const newSize = { name: this.newSizeName };
+      this.ProductService.addSize(newSize).subscribe({
+        next: (data) => {
+          this.sizes.push(newSize);
+          this.displaySizeDialog = false;
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'New size added successfully!',
+          });
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Error adding size:', err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to add size. Please try again.',
+          });
+        },
+      });
+    } else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Warning',
+        detail: 'Please enter a size name before saving.',
+      });
+    }
   }
 
+  // Close dialog without saving
   closeDialog() {
-    this.displayDialog = false; // Close dialog without saving
+    this.displayFrameDialog = false;
+    this.displayMaterialDialog = false;
+    this.displaySizeDialog = false;
+  }
+
+  AddProduct: FormGroup = new FormGroup({
+    Name: new FormControl(''),
+  });
+  handle() {
+    console.log(this.AddProduct.value);
   }
 }
