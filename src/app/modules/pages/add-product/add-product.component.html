@@ -1,108 +1,26 @@
-a<div class="d-flex justify-content-center align-items-center p-4 m-4">
+<p-toast></p-toast>
 
-    <div class="w-75 mx-auto p-4 m-5 addProduct ">
+<p-dropdown [options]="frames" [(ngModel)]="selectedFrame" optionLabel="name" placeholder="Select Frames" />
 
-        <div class="mb-3 text-white">
+<button pButton type="button" label="Add New Frame:" (click)="showDialog()" icon="pi pi-plus"></button>
 
-            <i class="fa-solid fa-right-to-bracket"></i> Type Of Product:
+<p-dialog header="Add New Frame " [(visible)]="displayDialog" [modal]="true" [closable]="false" class="text-center">
+    <div class="p-fluid">
+        <div class="p-field">
+            <label for="frameName"></label>
+            <input #frameInput pInputText id="frameName" [(ngModel)]="newFrameName" placeholder="Enter Frame Name:"
+                class="mark" />
         </div>
 
+        <p-footer>
+            <button class="d-block mx-auto  my-3" pButton type="button" label="Add" (click)="addNewFrame() "
+                icon="pi pi-check"></button>
 
-        <form>
-            <div class="row gy-4">
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="name">Name:</label>
-                        <input id="name" type="text" class="form-control" placeholder=" Enter Name:">
-
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="price">Price:</label>
-                        <input id="price" type="number" class="form-control" placeholder=" Enter Price:">
-
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="price_before">Price Before Discount:</label>
-                        <input id="price_before" type="number" class="form-control"
-                            placeholder=" Enter Price Before Discount:">
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="Category">Category:</label>
-                        <input id="Category" class="form-control" placeholder=" Choose Category:">
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="Material">Material:</label>
-                        <input id="Material" class="form-control" placeholder=" Choose Material:">
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="Frame">Frame:</label>
-                        <!-- <input id="Frame" class="form-control" placeholder=" Choose Frame:"> -->
-                        <!-- <div>
-                            <p-multiselect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"
-                                placeholder="Choose Frame" [maxSelectedLabels]="1" styleClass="w-full md:w-80"
-                                (onChange)="onSelectionChange()" />
-                        </div> -->
-
-
-                        <div>
-                            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"
-                                placeholder="Choose Frame">
-                            </p-dropdown>
-                        </div>
-
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="Size">Size:</label>
-                        <input id="Size" class="form-control" placeholder=" Choose Size:">
-
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="img">Product Image:</label>
-                        <input id="img" class="form-control" type="file" placeholder=" Choose Product Image:">
-
-                    </div>
-                </div>
-            </div>
-
-            <button class="form-control mt-5 addButton">
-                ADD:
-            </button>
-        </form>
-
-
-
-
-
-
-
+        </p-footer>
     </div>
-</div>
+
+    <button *ngIf="displayDialog" (click)="closeDialog()" style="position: absolute; top: 1px; right: 10px;"
+        class="p-button-rounded p-button-danger">
+        <i class="pi pi-times"> <i class="fa-solid fa-x"></i></i>
+    </button>
+</p-dialog>
