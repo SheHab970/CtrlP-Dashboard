@@ -31,7 +31,6 @@ import { SearchComponent } from '../../../share/componrnts/search/search.compone
     InputTextModule,
     RouterModule,
     SearchComponent,
-    Dialog,
   ],
   providers: [MessageService], // Combine providers into one array
   templateUrl: './products-list.component.html',
