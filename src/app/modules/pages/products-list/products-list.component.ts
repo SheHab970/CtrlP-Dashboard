@@ -45,11 +45,10 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.ProductService.getProductlist().subscribe((data: any) => {
-      this.list = data.map((product: any) => ({
+      this.list = data.data.map((product: any) => ({
         ...product,
         inventoryStatus: this.getDefaultStatus(product), // Assign a status
       }));
-      console.log(this.list);
 
       this.statuses = [
         { label: 'In Stock', value: 'INSTOCK' },
