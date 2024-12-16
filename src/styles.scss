@@ -18,9 +18,9 @@
 
 body {
   height: 100vh;
-  // background-color: #f1f4fb !important;
-  background-color: var(--backgroundColor);
-  color: #1a1a1a !important;
+  background-color: var(--backgroundColor) !important;
+  // background-color: #b3b3b3 !important;
+  // color: white;
 }
 // .p-paginator {
 //   display: flex;
@@ -30,32 +30,27 @@ body {
 //   border: none;
 // }
 
-// .p-datatable .p-datatable-footer {
-//   border: 1px solid #e5e7eb;
-//   border-width: 0 0 1px 0;
-//   // padding: 1rem 0.5px;
-//   font-weight: 700;
-// }
+.p-datatable .p-datatable-footer {
+  border: 1px solid var(--secondarybackgroundColor);
+  border-width: 0 0 1px 0;
+  // padding: 1rem 0.5px;
+  font-weight: 700;
+}
 
-// table {
-//   /* outline: 1px solid #0c9 !important; */
-//   border: none;
-// }
-// thead,
-// tbody,
-// tfoot,
-// tr,
-// td,
-// th {
-//   border-block-end: 0.5px;
-//   border-color: inherit;
-//   // border-radius: 30px;
-//   border-width: 1px;
-//   border-color: #d1d1d1;
-//   // border: none;
+table {
+  /* outline: 1px solid #0c9 !important; */
+  border: none;
+}
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+  // border: none;
 
-//   background-color: #ffffff;
-// }
+  background-color: var(--backgroundColor);
+}
 
 // /* Add this CSS to create space between each table row */
 // .space {
@@ -76,7 +71,68 @@ body {
   background-color: #f5c33c;
   color: white;
   border: none;
-  font-size: 14px;
-  padding: 8px 10px;
+  font-size: 15px;
+  padding: 8px 17px;
   margin: 20px;
+}
+
+.listSection {
+  background-color: var(--backgroundColor);
+  padding: 5px;
+  .InnerSection {
+    padding: 15px 5px;
+    .search_component {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 75%;
+    }
+  }
+  .ListTable {
+    .list {
+      background-color: var(--backgroundColor);
+      cursor: pointer;
+    }
+    .list:hover {
+      opacity: 0.7;
+    }
+    tr:nth-child(odd) {
+      background-color: #202020;
+    }
+    th {
+      background-color: var(--backgroundColor);
+      color: var(--MainColor);
+      font-size: 20px;
+      text-align: center;
+    }
+    td {
+      text-align: center;
+      color: var(--ParagraphColor);
+    }
+  }
+}
+
+/// addd---editt ---comp
+///
+///
+
+.addProduct {
+  border-radius: 22px;
+
+  color: white;
+  padding: 40px;
+  font-size: 20px;
+  box-shadow: 1px 1px 37px 13px rgba(187, 184, 184, 0.4);
+  border-radius: 10px;
+}
+::placeholder {
+  color: var(--ParagraphColor);
+}
+.addButton {
+  background-color: var(--MainColor);
+
+  cursor: pointer;
+}
+.editButton {
+  cursor: pointer;
 }

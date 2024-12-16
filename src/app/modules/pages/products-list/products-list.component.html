@@ -1,67 +1,59 @@
-<div class="card w-80 mx-auto m-5">
-    <p-table [value]="list" styleClass="p-datatable-gridlines" [tableStyle]="{'min-width': '60rem'}" [paginator]="true"
-        [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" class="bg">
-        <ng-template pTemplate="header">
+<section class="listSection" *ngIf="list.length>0">
+    <div class="InnerSection d-flex justify-content-center">
+        <div class="search_component">
+            <app-search />
+            <button class="btn-main " (click)="addProduct()">Add Product <i class="fa-solid fa-plus ms-1"></i></button>
 
-            <div class=" productTable">
-                <h3 class="h6 ms-5">
-                    Products Table:
-                </h3>
-                <button class="btn-main" (click)="addProduct()">Add Product</button>
-            </div>
+        </div>
+    </div>
+    <div class="ListTable">
+        <p-table [value]="list" styleClass="p-datatable-gridlines" dataKey="id" [tableStyle]="{'min-width': '60rem'}"
+            [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20] ">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">Name </th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>price before discount</th>
+                    <th>Reviews</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-i="rowIndex">
+                <tr class="list">
+                    <td>{{ product.category.name }}</td>
+                    <td>
+                        <img [src]="product.imageCover" [alt]="product.name" width="75" class="shadow-4" />
+                    </td>
+                    <td>{{ product.price | currency: 'USD' }}</td>
+                    <td>{{ product.price | currency: 'USD' }}</td>
+                    <td>
+                        <p-rating [(ngModel)]="product.ratingsAverage" [readonly]="true"></p-rating>
+                    </td>
 
-            <tr class="orang">
-                <th pSortableColumn="name">Name </th>
-
-                <th>Image</th>
-                <th>Price</th>
-                <th>price before discount</th>
-                <th>Category</th>
-                <th>Reviews</th>
-                <!-- <th>size</th>
-                <th>frame</th>
-                <th>Material</th> -->
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-product let-i="rowIndex">
-            <tr>
-                <td>{{ product.category.name }}</td>
-                <td>
-                    <img [src]="product.imageCover" [alt]="product.name" width="75" class="shadow-4" />
-                </td>
-                <td>{{ product.price | currency: 'USD' }}</td>
-                <td>{{ product.price | currency: 'USD' }}</td>
-                <td>{{ product.category.name }}</td>
-                <td>
-                    <p-rating [(ngModel)]="product.ratingsAverage" [readonly]="true" [cancel]="false"></p-rating>
-                </td>
-                <!-- <td>m</td>
-                <td class="w-auto">Frame 1</td>
-                <td>Material 1</td> -->
-                <td>
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                </td>
-                <td>
-                    <div class="d-flex align-items-center justify-content-evenly">
-                        <span class="action-icon">
-                            <i class="fa-solid fa-trash text-danger"></i>
-                        </span>
-                        <span class="action-icon">
-                            <i class="fa-regular fa-pen-to-square text-success"></i>
-                        </span>
-                    </div>
-                </td>
-
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="summary">
-            <div class="flex align-items-center justify-content-around ">
-                In total, there are {{ list.length }} products.
-            </div>
-        </ng-template>
-    </p-table>
-</div>
+                    <td>
+                        <p-tag [value]="product.inventoryStatus"
+                            [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center justify-content-center gap-3">
+                            <span class="action-icon">
+                                <i class="fa-solid fa-trash text-danger fs-5" title="Delete"></i>
+                            </span>
+                            <span class="action-icon">
+                                <i class="fa-regular fa-pen-to-square text-success fs-5 editButton" title="Edit"
+                                    routerLink="editProduct"></i>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-around ">
+                    In total, there are {{ list.length }} products.
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+</section>

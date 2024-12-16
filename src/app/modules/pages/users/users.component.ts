@@ -12,6 +12,7 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { SearchComponent } from '../../../share/componrnts/search/search.component';
 
 @Component({
   selector: 'app-users',
@@ -26,6 +27,7 @@ import { InputTextModule } from 'primeng/inputtext';
     ToastModule,
     DropdownModule,
     InputTextModule,
+    SearchComponent,
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
