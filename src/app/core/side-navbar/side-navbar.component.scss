@@ -72,6 +72,7 @@
     transition: 0s;
     opacity: 0;
     display: block;
+    pointer-events: none;
 }
 .sidr-nav-open ul li .title {
     display: none;

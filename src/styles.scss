@@ -22,13 +22,13 @@ body {
   // background-color: #b3b3b3 !important;
   // color: white;
 }
-.p-paginator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  border: none;
-}
+// .p-paginator {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   flex-wrap: wrap;
+//   border: none;
+// }
 
 .p-datatable .p-datatable-footer {
   border: 1px solid var(--secondarybackgroundColor);
@@ -52,18 +52,12 @@ th {
   background-color: var(--backgroundColor);
 }
 
-/* Add this CSS to create space between each table row */
-.space {
-  margin-bottom: 90px; /* Adds space between rows */
-}
+// /* Add this CSS to create space between each table row */
+// .space {
+//   margin-bottom: 90px; /* Adds space between rows */
+// }
 
-:root {
-  --p-datatable-body-cell-padding: 2.55rem 1rem;
-}
-.w-80 {
-  width: 85%;
-  border-radius: 20px !important;
-}
+
 
 .btn-main {
   border-radius: 10px;

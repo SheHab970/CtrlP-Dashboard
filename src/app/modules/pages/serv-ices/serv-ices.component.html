@@ -1,0 +1,51 @@
+<section class="services_section">
+    <div class="head d-flex justify-content-center align-items-center">
+        <div>
+            <h1>Services</h1>
+        </div>
+        <div>
+            <button class="btn btn-dark" routerLink="add-service">Add service</button>
+        </div>
+    </div>
+    <div class="service_table">
+        <p-table 
+            [value]="services"
+            styleClass="p-datatable-gridlines" 
+            dataKey="id" 
+            [tableStyle]="{'min-width': '60rem'}"
+            [paginator]="true"
+            [rows]="5" 
+            [rowsPerPageOptions]="[5, 10, 20] " 
+            class=""
+        >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-services>
+                <tr class="service">
+                    <td>{{ services.id }}</td>
+                    <td>{{ services.name }}</td>
+                    <td><img [src]="services.imageUrl" alt="img"></td>
+                    <td>{{ services.description }}</td>
+                    <!-- <td>{{ order.amount | currency : 'USD' }}</td> -->
+                     <td>
+                        <div class="action_icons d-flex justify-content-center align-items-center gap-5">
+                            <div class="editIcon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                            <div class="deleteIcon">
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+                        </div>
+                     </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</section>

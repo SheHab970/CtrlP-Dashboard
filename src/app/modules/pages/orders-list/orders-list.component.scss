@@ -1,6 +1,7 @@
 .order_section{
   background-color: var(--backgroundColor);
   padding: 5px;
+  margin-bottom: 50px;
   .section_head{
     padding: 15px 5px;
     .search_component{
@@ -34,8 +35,29 @@
         cursor: pointer;
         font-size: 22px;
       }
-      .deleteIcon i{
-        color: #af2f2fe0;
+    }
+    p-table ::ng-deep .p-paginator{
+      background-color: var(--backgroundColor);
+      border: none;
+      position: fixed;
+      bottom: 10px;
+      left: calc(36%);
+      .p-highlight{
+        background-color: var(--secondarybackgroundColor);
+        border-radius: 10px;
+        color: var(--MainColor);
+      }
+      .p-paginator-prev:hover,
+      .p-paginator-next:hover,
+      .p-paginator-last:hover,
+      .p-paginator-first:hover,
+      .p-paginator-page:hover{
+        background-color: var(--secondarybackgroundColor);
+        border-radius: 10px;
+      }
+      .p-dropdown {
+        background-color: var(--secondarybackgroundColor);
+        border: none;
       }
     }
   }
