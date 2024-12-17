@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class CategoryService {
   constructor(private _http: HttpClient) {}
 
   private authToken: string =
@@ -20,7 +20,22 @@ export class UsersService {
     });
   }
 
-  GetUSer(): Observable<any> {
-    return this._http.get('https://ctrl-p.runasp.net/api/User/Get-All-Users');
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      Authorization: `Bearer ${this.authToken}`,
+      'Content-Type':
+        'multipart/form-data; boundary=----WebKitFormBoundary8whQfCkjnyTTklPF',
+    });
+  }
+
+  getCategories(): Observable<any> {
+    return this._http.get('https://ctrl-p.runasp.net/api/Category/Get-All');
+  }
+
+  // Add category
+  addCategory(data: object): Observable<any> {
+    return this._http.post('https://ctrl-p.runasp.net/api/Category/add', data, {
+      headers: this.getHeaders(),
+    });
   }
 }

@@ -6,15 +6,15 @@
 
             <i class="fa-solid fa-right-to-bracket"></i> Type Of Product:
         </div>
-
-
-        <form (ngSubmit)="handle()">
+        <form id="form">
             <div class="row gy-4">
                 <div class="col-md-6">
                     <div>
 
                         <label for="name">Name:</label>
-                        <input id="name" type="text" class="form-control" placeholder=" Enter Name:">
+                        <input id="name" type="text" class="form-control" placeholder=" Enter Name:" [(ngModel)]="Name"
+                            name="name">
+
 
                     </div>
                 </div>
@@ -23,7 +23,8 @@
                     <div>
 
                         <label for="Description">Description:</label>
-                        <input id="Description" type="text" class="form-control" placeholder=" Enter Description:">
+                        <input id="Description" type="text" class="form-control" placeholder=" Enter Description:"
+                            [(ngModel)]="Description" name="Description">
 
                     </div>
                 </div>
@@ -31,7 +32,8 @@
                     <div>
 
                         <label for="price">Price:</label>
-                        <input id="price" type="number" class="form-control" placeholder=" Enter Price:">
+                        <input id="price" type="number" class="form-control" placeholder=" Enter Price:"
+                            [(ngModel)]="Price" name="Price">
 
                     </div>
                 </div>
@@ -41,7 +43,17 @@
 
                         <label for="price_before">Price Before Discount:</label>
                         <input id="price_before" type="number" class="form-control"
-                            placeholder=" Enter Price Before Discount:">
+                            placeholder=" Enter Price Before Discount:" [(ngModel)]="OldPrice" name="OldPrice">
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div>
+
+                        <label for="price_before">Price Before Discount:</label>
+                        <input id="price_before" type="number" class="form-control"
+                            placeholder=" Enter Price Before Discount:" [(ngModel)]="UnitsInStock" name="UnitsInStock">
 
                     </div>
                 </div>
@@ -49,7 +61,15 @@
                     <div>
 
                         <label for="Category">Category:</label>
-                        <input id="Category" class="form-control" placeholder=" Choose Category:">
+
+
+                        <div class="d-flex align-items-center">
+                            <p-multi-select [options]="categories" [(ngModel)]="CategoryNames" optionLabel="name"
+                                name="m" placeholder="Select categories" styleClass="w-full md:w-80"></p-multi-select>
+
+                            <!-- Button to open the material modal -->
+
+                        </div>
 
                     </div>
                 </div>
@@ -59,8 +79,8 @@
 
                         <!-- Dropdown to select a material -->
                         <div class="d-flex align-items-center">
-                            <p-dropdown [options]="materials" [(ngModel)]="selectedMaterial" optionLabel="name" name="m"
-                                placeholder="Select Material" styleClass="w-full md:w-80"></p-dropdown>
+                            <p-multi-select [options]="materials" [(ngModel)]="selectedMaterial" optionLabel="name"
+                                name="m" placeholder="Select Material" styleClass="w-full md:w-80"></p-multi-select>
 
                             <!-- Button to open the material modal -->
                             <button pButton type="button" label="Add New Material" (click)="showMaterialDialog()"
@@ -99,8 +119,9 @@
 
 
                         <div class="d-flex align-items-center">
-                            <p-dropdown [options]="frames" [(ngModel)]="selectedFrame" optionLabel="name"
-                                placeholder="Select Frame" name="something" styleClass="w-full md:w-80"></p-dropdown>
+                            <p-multi-select [options]="frames" [(ngModel)]="selectedFrame" optionLabel="name"
+                                placeholder="Select Frame" name="something"
+                                styleClass="w-full md:w-80"></p-multi-select>
 
 
                             <button pButton type="button" label="Add New Frame" (click)="showFrameDialog()"
@@ -141,8 +162,8 @@
 
                         <!-- Dropdown to select a size -->
                         <div class="d-flex align-items-center">
-                            <p-dropdown [options]="sizes" [(ngModel)]="selectedSize" optionLabel="name" name="s"
-                                placeholder="Select Size" styleClass="w-full md:w-80"></p-dropdown>
+                            <p-multi-select [options]="sizes" [(ngModel)]="selectedSize" optionLabel="name" name="s"
+                                placeholder="Select Size" styleClass="w-full md:w-80"></p-multi-select>
 
                             <!-- Button to open the size modal -->
                             <button pButton type="button" label="Add New Size" (click)="showSizeDialog()"
@@ -174,37 +195,24 @@
                     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div>
 
                 <div class="col-md-6">
                     <div>
 
-                        <label for="img">Product Image:</label>
-                        <input id="img" class="form-control" type="file" placeholder=" Choose Product Image:">
+                        <!-- <label for="img">Product Image:</label>
+                        <input id="img" class="form-control" type="file" placeholder=" Choose Product Image:"
+                            [(ngModel)]="Image" name="Image"> -->
 
+
+                        <label>Images:</label>
+                        <input type="file" multiple (change)="onFileSelected($event)" />
                     </div>
                 </div>
             </div>
 
-            <button class="form-control mt-5 addButton">
-                UPDATE:
+            <button class="form-control mt-5 addButton" (click)="sendData()">
+                Add:
             </button>
         </form>
 
