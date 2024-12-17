@@ -23,9 +23,21 @@ export class ProductService {
     });
   }
 
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      Authorization: `Bearer ${this.authToken}`,
+      'Content-Type':
+        'multipart/form-data; boundary=----WebKitFormBoundary8whQfCkjnyTTklPF',
+    });
+  }
+
   // Get the list of products
   getProductlist(): Observable<any> {
     return this._http.get('https://ecommerce.routemisr.com/api/v1/products');
+  }
+
+  getCatlist(): Observable<any> {
+    return this._http.get('https://ctrl-p.runasp.net/api/Category/Get-All');
   }
 
   // Get categories
@@ -34,9 +46,9 @@ export class ProductService {
   }
 
   // Add product
-  addProduct(data: object): Observable<any> {
+  addProduct(data: FormData): Observable<any> {
     return this._http.post('https://ctrl-p.runasp.net/api/Product', data, {
-      headers: this.getAuthHeaders(),
+      headers: this.getHeaders(),
     });
   }
 
