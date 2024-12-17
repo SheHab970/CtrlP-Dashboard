@@ -11,7 +11,7 @@ export class ProductService {
   baseUrl: string = `https://ecommerce.routemisr.com/api/v1/`;
 
   private authToken: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZXNyYWExNjciLCJqdGkiOiI4ODJiMDRkOC0yZGJmLTRkN2UtYjRjMy03ZDZkYjA5NGMxZDEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxMSIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE1NyIsImV4cCI6MTczNDQ5NTQyOSwiaWF0IjoxNzM0NDM1NDI5LCJuYmYiOjE3MzQ0MzU0Mjl9.42iNjxy0a33vab01OFVNUWdEbjfkAoXvWRi0qPGnv14';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZW1hbjEyMyIsImp0aSI6IjJiZmJjYzA4LTQwMmQtNDhiZS05NzI5LWEyYWMwMjMwMjEyOSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxMCIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE1NyIsImV4cCI6MTczNDQxMjgzNCwiaWF0IjoxNzM0MzUyODM0LCJuYmYiOjE3MzQzNTI4MzR9.Jl9hdB2VhTLx3qoM3nSasiJLZNfXe7NEuO8JPArkCYg';
   setAuthToken(newToken: string): void {
     this.authToken = newToken;
   }
@@ -19,6 +19,7 @@ export class ProductService {
   private getAuthHeaders(): HttpHeaders {
     return new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`,
+      'Content-Type': 'application/json',
     });
   }
 
@@ -32,9 +33,7 @@ export class ProductService {
 
   // Get the list of products
   getProductlist(): Observable<any> {
-    return this._http.get(
-      'https://ctrl-p.runasp.net/api/Product/GetAllProducts'
-    );
+    return this._http.get('https://ecommerce.routemisr.com/api/v1/products');
   }
 
   getCatlist(): Observable<any> {
@@ -42,7 +41,7 @@ export class ProductService {
   }
 
   // Get categories
-  getCategories(): Observable<any> {
+  getcategories(): Observable<any> {
     return this._http.get(this.baseUrl + 'categories');
   }
 
@@ -54,7 +53,7 @@ export class ProductService {
   }
 
   // Add category
-  addCategory(data: object): Observable<any> {
+  addCat(data: object): Observable<any> {
     return this._http.post('https://ctrl-p.runasp.net/api/Category/add', data, {
       headers: this.getAuthHeaders(),
     });
@@ -81,7 +80,6 @@ export class ProductService {
     );
   }
 
-  // Add material
   addMaterial(newMaterial: { name: string }): Observable<any> {
     return this._http.post(
       'https://ctrl-p.runasp.net/api/Material/add',
@@ -92,7 +90,6 @@ export class ProductService {
     );
   }
 
-  // Get materials
   getMaterials(): Observable<any[]> {
     return this._http.get<any[]>(
       'https://ctrl-p.runasp.net/api/Material/Get-All',
@@ -102,33 +99,15 @@ export class ProductService {
     );
   }
 
-  // Add size
   addSize(newSize: { name: string }): Observable<any> {
     return this._http.post('https://ctrl-p.runasp.net/api/Size/add', newSize, {
       headers: this.getAuthHeaders(),
     });
   }
 
-  // Get sizes
-  getSizes(): Observable<any[]> {
+  getSize(): Observable<any[]> {
     return this._http.get<any[]>('https://ctrl-p.runasp.net/api/Size/Get-All', {
       headers: this.getAuthHeaders(),
     });
-  }
-
-  // DELETE product method with FormData
-  deleteProduct(productId: string): Observable<any> {
-    const headers = this.getAuthHeaders();
-    const body = new FormData(); // Or send a custom payload if needed
-    body.append('productId', productId); // Append productId to FormData
-
-    return this._http.request(
-      'DELETE',
-      'https://ctrl-p.runasp.net/api/Product/DeleteProduct',
-      {
-        headers: headers,
-        body: body, // Send the FormData as the body of the request
-      }
-    );
   }
 }

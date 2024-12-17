@@ -57,6 +57,8 @@ th {
 //   margin-bottom: 90px; /* Adds space between rows */
 // }
 
+
+
 .btn-main {
   border-radius: 10px;
   background-color: #f5c33c;
@@ -126,20 +128,4 @@ th {
 }
 .editButton {
   cursor: pointer;
-}
-
-.p-rating {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--p-rating-gap);
-}
-
-.p-datatable-tbody > tr > td {
-  text-align: start;
-  border-color: var(--p-datatable-body-cell-border-color);
-  border-style: solid;
-  border-width: 0 0 1px 0;
-  padding: 30px !important;
 }
