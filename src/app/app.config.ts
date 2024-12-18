@@ -2,10 +2,11 @@ import { ApplicationConfig } from '@angular/core';
 
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
+import { customInterceptor } from './modules/authentication/interceptor/custom.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
@@ -15,6 +16,6 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     provideRouter(routes),
-    provideHttpClient(withFetch()), // Enables fetch API for better compatibility
+    provideHttpClient(withInterceptors([customInterceptor])), 
   ],
 };

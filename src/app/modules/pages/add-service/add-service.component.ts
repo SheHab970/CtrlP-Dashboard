@@ -18,10 +18,10 @@ export class AddServiceComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   
   add_service = this.formBuilder.group({
-    id: '',
-    name: '',
-    description: '',
-    image: null
+    // id: '',
+    Name: '',
+    Description: '',
+    Image: null
   });
   serviceimg : any;
   theimg : any;
@@ -39,7 +39,7 @@ export class AddServiceComponent implements OnInit {
     
 
     this.add_service.patchValue({
-      image: event.target.files[0],
+      Image: event.target.files[0],
 
     });
     
@@ -48,10 +48,16 @@ export class AddServiceComponent implements OnInit {
   onSubmit(): void{
     console.log(this.add_service.value);
 
-    this.services.addServices(this.add_service.value).subscribe((res) =>{
+    this.services.addServices(this.add_service.value).subscribe({
+      next: (res) =>{
       console.log(res);
       },
-      (error: any) => console.log(error),
+      error: (err) =>{
+        console.log("there are error",err);
+        
+      }
+
+    }
       
     );
     
