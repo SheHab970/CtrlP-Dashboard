@@ -23,7 +23,13 @@ export class SideNavbarComponent {
     console.log(this.menuStatus);
   }
 
+  getName(){
+    const adminName = this.auth.getUserDetails();
+    return adminName?.name;
+  }
+
   logout(){
     this.auth.logOut();
   }
+
 }

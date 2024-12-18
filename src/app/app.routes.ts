@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { authGuard } from './modules/authentication/guard/auth.guard';
 
 export const routes: Routes = [
   {
@@ -21,6 +22,7 @@ export const routes: Routes = [
       import('./modules/pages/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent
       ),
+      canActivate:[authGuard],
     children: [
       ///orders
       {

@@ -19,8 +19,8 @@ export class AuthService {
   }
   // log Out methode
   logOut(){
-    localStorage.clear();
-    this.router.navigate(['login']);
+    localStorage.removeItem('token');  //remove token from localStorage
+    this.router.navigate(['login']);   //redirect to login page
   }
 
   // store response token methode
@@ -30,7 +30,7 @@ export class AuthService {
 
   // get this token methode
   getToken(): string|null{
-    return localStorage.getItem('token')
+    return localStorage.getItem('token') // get token from localStorage
   }
 
   // return usre Details 
@@ -38,7 +38,23 @@ export class AuthService {
     const token = this.getToken();
     if(!token) return null;
     const decodedToken: any = jwtDecode(token);
-    return decodedToken;
+    const name_varible = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
+    const role_varible = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
+    const userDetails = {
+      name: decodedToken[name_varible],
+      role: decodedToken[role_varible],
+    };
+    return userDetails;
+  }
+
+  // check if user is anmin or not
+  isAdmin(){
+    const role = this.getUserDetails();
+    if(role?.role == 'Admin') {
+      return true;
+    }else{
+      return false;
+    }
   }
 
   // is login => 
