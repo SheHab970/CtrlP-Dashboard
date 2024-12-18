@@ -1,31 +1,24 @@
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
+  ElementRef,
   inject,
   OnInit,
   ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  FormArray,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { ProductService } from '../../../core/services/product.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
-import { log } from 'console';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { ProductService } from '../../../core/services/product.service';
 interface Frame {
   name: string;
 }
@@ -69,7 +62,7 @@ export class AddProductComponent implements OnInit {
   Description: string = '';
   Price: number = 0;
   OldPrice: number = 0;
-  UnitsInStock: number = 0;
+  UnitsInStock: number = 5;
   // ProductCategoryIds: [] = [];
   //  ProductFrameIds:[]=[]
   selectedFrame: Frame[] = [];
@@ -176,11 +169,11 @@ export class AddProductComponent implements OnInit {
 
   fetchSizes() {
     this.ProductService.getSizes().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.sizes = data;
         this.cdr.detectChanges();
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error fetching sizes:', err);
         this.messageService.add({
           severity: 'error',
@@ -330,26 +323,23 @@ export class AddProductComponent implements OnInit {
     formData.append('OldPrice', this.OldPrice.toString());
     formData.append('UnitsInStock', this.UnitsInStock.toString());
 
-    formData.append(
-      'categoryNames',
-      JSON.stringify(this.CategoryNames.map((c) => c.name))
-    );
+    // Append arrays of strings directly (no need to stringify)
+    this.CategoryNames.forEach((categoryName: any) => {
+      formData.append('CategoryNames', categoryName.name); // using '' to indicate multiple values
+    });
 
-    // Append frame, size, and material names
-    formData.append(
-      'frameName',
-      JSON.stringify(this.selectedFrame.map((f) => f.name))
-    );
-    formData.append(
-      'sizeName',
-      JSON.stringify(this.selectedSize.map((s) => s.name))
-    );
-    formData.append(
-      'materialNames',
-      JSON.stringify(this.selectedMaterial.map((m) => m.name))
-    );
+    this.selectedFrame.forEach((frameName: any) => {
+      formData.append('FramesNames', frameName.name); // assuming frame has 'name' property
+    });
 
-    // Append files (images) as an array
+    this.selectedSize.forEach((sizeName: any) => {
+      formData.append('SizesNames', sizeName.name); // assuming size has 'name' property
+    });
+
+    this.selectedMaterial.forEach((materialName: any) => {
+      formData.append('MaterialsNames', materialName.name); // assuming material has 'name' property
+    });
+
     this.selectedFiles.forEach((file) => {
       formData.append('Image', file);
     });
