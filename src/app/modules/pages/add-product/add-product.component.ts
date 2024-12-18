@@ -1,32 +1,38 @@
+import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectorRef,
   Component,
+  ElementRef,
   inject,
   OnInit,
   ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { ProductService } from '../../../core/services/product.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { MultiSelectModule } from 'primeng/multiselect';
-import Cookies from 'js-cookie';
 import { DropdownModule } from 'primeng/dropdown';
-import { log } from 'console';
+import { InputTextModule } from 'primeng/inputtext';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { ProductService } from '../../../core/services/product.service';
+interface Frame {
+  name: string;
+}
 
+interface Size {
+  name: string;
+}
+interface cat {
+  name: string;
+}
+
+interface Material {
+  name: string;
+}
 @Component({
   selector: 'app-add-product',
   standalone: true,
@@ -52,13 +58,47 @@ export class AddProductComponent implements OnInit {
   ProductService = inject(ProductService);
   messageService = inject(MessageService);
   cdr = inject(ChangeDetectorRef);
+  Name: string = '';
+  Description: string = '';
+  Price: number = 0;
+  OldPrice: number = 0;
+  UnitsInStock: number = 5;
+  // ProductCategoryIds: [] = [];
+  //  ProductFrameIds:[]=[]
+  selectedFrame: Frame[] = [];
+  CategoryNames: cat[] = [];
+  selectedMaterial: Material[] = [];
+  selectedSize: Size[] = [];
+
+  selectedFiles: File[] = [];
+  // sendData(): void {
+  //   const data = {
+  //     name: this.Name,
+  //     describe: this.Description,
+  //     price: this.Price,
+  //     oldprice: this.OldPrice,
+  //     unit: this.UnitsInStock,
+  //     category: this.ProductCategoryIds,
+  //     frame: this.selectedFrame,
+  //     MaterialsNames: this.selectedMaterial,
+  //   };
+
+  //   console.log(data);
+  // }
+
+  // Handle file input change
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files) {
+      this.selectedFiles = Array.from(input.files); // Convert FileList to Array
+    }
+  }
 
   frames: any[] = [];
   materials: any[] = [];
-  sizes: any[] = []; // Added sizes array
-  selectedFrame: any;
-  selectedMaterial: any;
-  selectedSize: any; // Added selected size
+  categories: any[] = [];
+  sizes: any[] = []; // Added sizes array // Added selected size
   displayFrameDialog: boolean = false;
   displayMaterialDialog: boolean = false;
   displaySizeDialog: boolean = false; // For size dialog visibility
@@ -68,11 +108,13 @@ export class AddProductComponent implements OnInit {
 
   @ViewChild('frameInput') frameInput!: ElementRef;
   note: any;
+  showMoreControls: any;
 
   ngOnInit() {
     this.fetchFrames();
     this.fetchMaterials();
     this.fetchSizes(); // Fetch sizes when the component initializes
+    this.fetchCategories();
   }
 
   fetchFrames() {
@@ -108,14 +150,30 @@ export class AddProductComponent implements OnInit {
       },
     });
   }
-
-  fetchSizes() {
-    this.ProductService.getSize().subscribe({
+  fetchCategories() {
+    this.ProductService.getCatlist().subscribe({
       next: (data) => {
-        this.sizes = data;
+        this.categories = data;
         this.cdr.detectChanges();
       },
       error: (err) => {
+        console.error('Error fetching materials:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to fetch materials. Try again later.',
+        });
+      },
+    });
+  }
+
+  fetchSizes() {
+    this.ProductService.getSizes().subscribe({
+      next: (data: any) => {
+        this.sizes = data;
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => {
         console.error('Error fetching sizes:', err);
         this.messageService.add({
           severity: 'error',
@@ -255,10 +313,55 @@ export class AddProductComponent implements OnInit {
     this.displaySizeDialog = false;
   }
 
-  AddProduct: FormGroup = new FormGroup({
-    Name: new FormControl(''),
-  });
-  handle() {
-    console.log(this.AddProduct.value);
+  sendData(): void {
+    const formData = new FormData();
+
+    // Append fields with the same names as properties
+    formData.append('Name', this.Name);
+    formData.append('Description', this.Description);
+    formData.append('Price', this.Price.toString());
+    formData.append('OldPrice', this.OldPrice.toString());
+    formData.append('UnitsInStock', this.UnitsInStock.toString());
+
+    // Append arrays of strings directly (no need to stringify)
+    this.CategoryNames.forEach((categoryName: any) => {
+      formData.append('CategoryNames', categoryName.name); // using '' to indicate multiple values
+    });
+
+    this.selectedFrame.forEach((frameName: any) => {
+      formData.append('FramesNames', frameName.name); // assuming frame has 'name' property
+    });
+
+    this.selectedSize.forEach((sizeName: any) => {
+      formData.append('SizesNames', sizeName.name); // assuming size has 'name' property
+    });
+
+    this.selectedMaterial.forEach((materialName: any) => {
+      formData.append('MaterialsNames', materialName.name); // assuming material has 'name' property
+    });
+
+    this.selectedFiles.forEach((file) => {
+      formData.append('Image', file);
+    });
+
+    // Manually loop through FormData for debugging
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+
+    this.ProductService.addProduct(formData).subscribe({
+      next: (data) => {
+        console.log('Product added successfully:', data);
+        // Additional logic after successful submission (e.g., show a success message)
+      },
+      error: (error) => {
+        console.error('Error adding product:', error);
+        // Handle the error (e.g., show an error message to the user)
+      },
+      complete: () => {
+        console.log('Request complete.');
+        // Logic when the request is complete (successful or not)
+      },
+    });
   }
 }

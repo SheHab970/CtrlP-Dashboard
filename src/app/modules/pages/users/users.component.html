@@ -13,8 +13,7 @@
                 <tr class="list">
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Phone</th>
-                    <th>Order</th>
+
                     <th>Join Date</th>
                     <th>Actions</th>
                 </tr>
@@ -24,10 +23,9 @@
             <ng-template pTemplate="body" let-user>
                 <tr class="space">
                     <td>{{user.id}}-></td>
-                    <td><i class="fa-solid fa-user text-success"></i> :{{ user.name }}</td>
-                    <td><i class="fa-solid fa-phone text-warning"></i> :{{ user.phone }}</td>
-                    <td>{{ user.order }}</td>
-                    <td><i class="fa-solid fa-calendar text-info"></i> :{{ user.orderJoinDate }}</td>
+                    <td><i class="fa-solid fa-user text-success"></i> :{{ user.userName }}</td>
+
+                    <td><i class="fa-solid fa-calendar text-info"></i> :{{ user.joinDate }}</td>
 
                     <td>
                         <div>

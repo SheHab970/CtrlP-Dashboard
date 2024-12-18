@@ -23,10 +23,11 @@
 
             <ng-template pTemplate="body" let-category let-i="rowIndex">
                 <tr>
-                    <td class="text-center">{{ category._id }}</td>
+                    <td class="text-center">{{ category.id }}</td>
                     <td>{{ category.name }}</td>
                     <td>
-                        <img [src]="category.image" [alt]="category.name" width="75" class="shadow-4" />
+                        <img [src]="'https://ctrl-p.runasp.net/'+category.imageUrl" [alt]="category.name" width="75"
+                            class="shadow-4" />
                     </td>
                     <td>
                         <div class="d-flex align-items-center justify-content-center gap-3">

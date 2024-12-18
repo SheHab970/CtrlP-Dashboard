@@ -1,43 +1,47 @@
-import { Component , inject} from '@angular/core';
-import { FormsModule, FormBuilder,  ReactiveFormsModule, Validators } from '@angular/forms';
-import { log } from 'console';
+import { Component, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
-import { RouterModule } from '@angular/router';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule,RouterModule],
+  imports: [ReactiveFormsModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  constructor(private auth: AuthService, private router: Router) {}
 
-  constructor(private auth: AuthService,private router: Router){}
-
-  errorMassage:string = '';
+  errorMassage: string = '';
   passwordVisibility: boolean = false;
 
   private formBuilder = inject(FormBuilder);
 
   loginForm = this.formBuilder.group({
-    email: ['', Validators.required],
+    userName: ['', Validators.required],
     password: ['', Validators.required],
-  })
+  });
 
-  onSubmit(): void{
-    console.log(this.loginForm.status);
-
-    this.router.navigateByUrl("dashboard");
-
+  onSubmit(): void {
+    console.log('res');
     this.auth.login(this.loginForm.value).subscribe({
-      next: (res)=>{
+      next: (res) => {
         console.log(res);
-        
-      }
+        if (res.success == true) {
+          localStorage.setItem('TOKEN', res.token.replace(/^"|"$/g, ''));
+          this.router.navigate(['/dashboard']);
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
-    
   }
 
   togglePasswordVisibility(passwordInput: string): void {
