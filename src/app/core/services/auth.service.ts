@@ -53,6 +53,7 @@ export class AuthService {
     if(role?.role == 'Admin') {
       return true;
     }else{
+      localStorage.removeItem('token');  //remove token from localStorage
       return false;
     }
   }
