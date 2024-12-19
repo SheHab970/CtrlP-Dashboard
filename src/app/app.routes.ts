@@ -76,7 +76,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'Product/editProduct',
+        path: 'Product/editProduct/:id',
         loadComponent: () =>
           import('./modules/pages/edit-product/edit-product.component').then(
             (c) => c.EditProductComponent

@@ -22,14 +22,12 @@ import { ProductService } from '../../../core/services/product.service';
 interface Frame {
   name: string;
 }
-
 interface Size {
   name: string;
 }
 interface cat {
   name: string;
 }
-
 interface Material {
   name: string;
 }
@@ -63,38 +61,17 @@ export class AddProductComponent implements OnInit {
   Price: number = 0;
   OldPrice: number = 0;
   UnitsInStock: number = 5;
-  // ProductCategoryIds: [] = [];
-  //  ProductFrameIds:[]=[]
   selectedFrame: Frame[] = [];
   CategoryNames: cat[] = [];
   selectedMaterial: Material[] = [];
   selectedSize: Size[] = [];
-
   selectedFiles: File[] = [];
-  // sendData(): void {
-  //   const data = {
-  //     name: this.Name,
-  //     describe: this.Description,
-  //     price: this.Price,
-  //     oldprice: this.OldPrice,
-  //     unit: this.UnitsInStock,
-  //     category: this.ProductCategoryIds,
-  //     frame: this.selectedFrame,
-  //     MaterialsNames: this.selectedMaterial,
-  //   };
-
-  //   console.log(data);
-  // }
-
-  // Handle file input change
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-
     if (input.files) {
       this.selectedFiles = Array.from(input.files); // Convert FileList to Array
     }
   }
-
   frames: any[] = [];
   materials: any[] = [];
   categories: any[] = [];
@@ -115,6 +92,8 @@ export class AddProductComponent implements OnInit {
     this.fetchMaterials();
     this.fetchSizes(); // Fetch sizes when the component initializes
     this.fetchCategories();
+
+    console.log('hijjjjjjj');
   }
 
   fetchFrames() {
@@ -315,17 +294,13 @@ export class AddProductComponent implements OnInit {
 
   sendData(): void {
     const formData = new FormData();
-
-    // Append fields with the same names as properties
     formData.append('Name', this.Name);
     formData.append('Description', this.Description);
     formData.append('Price', this.Price.toString());
     formData.append('OldPrice', this.OldPrice.toString());
     formData.append('UnitsInStock', this.UnitsInStock.toString());
-
-    // Append arrays of strings directly (no need to stringify)
     this.CategoryNames.forEach((categoryName: any) => {
-      formData.append('CategoryNames', categoryName.name); // using '' to indicate multiple values
+      formData.append('CategoryNames', categoryName.name);
     });
 
     this.selectedFrame.forEach((frameName: any) => {
@@ -352,11 +327,20 @@ export class AddProductComponent implements OnInit {
     this.ProductService.addProduct(formData).subscribe({
       next: (data) => {
         console.log('Product added successfully:', data);
-        // Additional logic after successful submission (e.g., show a success message)
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'New Product added successfully!',
+        });
       },
       error: (error) => {
         console.error('Error adding product:', error);
-        // Handle the error (e.g., show an error message to the user)
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to add Product. Please try again.',
+        });
       },
       complete: () => {
         console.log('Request complete.');
