@@ -1,16 +1,19 @@
-// import { inject } from '@angular/core';
-// import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn,CanActivate,Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
+import { inject, Injectable } from '@angular/core';
 
-// export const authGuard: CanActivateFn = (route, state) => {
-//   const router = inject(Router);
+export const authGuard: CanActivateFn = (route, state) => {
 
-//   // Check if token exists in local storage and navigate to dashboard
-//   const TOKEN = localStorage.getItem('TOKEN') || null;
+  const auth = inject(AuthService);
+  const router = inject(Router);
 
-//   if (TOKEN) {
-//     router.navigate(['/dashboard']); // if does exist navigate to dashboard
-//     return true;
-//   } else {
-//     return false; // if does not exist navigate prevent access
-//   }
-// };
+  if (auth.isLoginIn() && auth.isAdmin()) {
+
+    return true;   
+  }
+  else{
+    router.navigate(['login']);
+    return false;
+  }
+
+};
