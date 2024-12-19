@@ -73,11 +73,11 @@
             <!-- icon  -->
             <i class="fa-solid fa-user justify-content-end px-3 fs-2 icon"></i>
             <div>
-              <span class="text nav-text">Admin</span>
+              <span class="text nav-text">{{getName()}}</span>
             </div>
           </div>
         </a>
-        <i class="fa-solid fa-arrow-right-from-bracket icon" id="log-out"></i>
+          <i (click)="logout()" class="fa-solid fa-arrow-right-from-bracket icon" id="log-out"></i>
       </div>
     </div>
   </div>
