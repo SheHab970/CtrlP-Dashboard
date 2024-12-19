@@ -22,19 +22,19 @@
             </ng-template>
             <ng-template pTemplate="body" let-product let-i="rowIndex">
                 <tr class="list">
-                    <td>{{ product.category.name }}</td>
+                    <td>{{ product.name }}</td>
                     <td>
-                        <img [src]="product.imageCover" [alt]="product.name" width="75" class="shadow-4" />
+                        <img [src]="'https://ctrl-p.runasp.net/'+product.url[0]" [alt]="product.name" width="100"
+                            class="shadow-4" />
                     </td>
-                    <td>{{ product.price | currency: 'USD' }}</td>
-                    <td>{{ product.price | currency: 'USD' }}</td>
+                    <td>{{ product.price | currency: 'SAR ' }}</td>
+                    <td>{{ product.oldPrice ? (product.oldPrice | currency: 'SAR ') : '_' }}</td>
                     <td>
-                        <p-rating [(ngModel)]="product.ratingsAverage" [readonly]="true"></p-rating>
+                        <p-rating [(ngModel)]="product.rating" [readonly]="true"></p-rating>
                     </td>
 
                     <td>
-                        <p-tag [value]="product.inventoryStatus"
-                            [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                        <p-tag [value]="product.UnitsInStock" [severity]="getSeverity(product.UnitsInStock)"></p-tag>
                     </td>
                     <td>
                         <div class="d-flex align-items-center justify-content-center gap-3">
@@ -43,7 +43,8 @@
                             </span>
                             <span class="action-icon">
                                 <i class="fa-regular fa-pen-to-square text-success fs-5 editButton" title="Edit"
-                                    routerLink="editProduct"></i>
+                                    [routerLink]="['/dashboard/Product/editProduct', product.id]"></i>
+
                             </span>
                         </div>
                     </td>

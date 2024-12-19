@@ -45,7 +45,7 @@ export class ProductsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.ProductService.getProductlist().subscribe((data: any) => {
-      this.list = data.data.map((product: any) => ({
+      this.list = data.map((product: any) => ({
         ...product,
         inventoryStatus: this.getDefaultStatus(product), // Assign a status
       }));
@@ -60,9 +60,9 @@ export class ProductsListComponent implements OnInit {
 
   getDefaultStatus(product: any): string {
     // Example logic for assigning status based on price (customize as needed)
-    if (product.price > 200) {
+    if (product.UnitsInStock < 20) {
       return 'INSTOCK';
-    } else if (product.price > 50) {
+    } else if (product.UnitsInStock > 10) {
       return 'LOWSTOCK';
     } else {
       return 'OUTOFSTOCK';

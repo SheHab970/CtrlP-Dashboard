@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from '../../../core/services/product.service';
+import { MessageService } from 'primeng/api';
+// import { Product } from '../../../models/product.mod'; // Assuming you have a Product model
+import { list } from '../../../core/interface/product';
 
 @Component({
   selector: 'app-edit-product',
-  standalone: true,
-  imports: [],
   templateUrl: './edit-product.component.html',
-  styleUrl: './edit-product.component.scss'
+  styleUrls: ['./edit-product.component.scss'],
+  standalone: true,
 })
-export class EditProductComponent {
-
+export class EditProductComponent implements OnInit {
+  ngOnInit(): void {}
 }
