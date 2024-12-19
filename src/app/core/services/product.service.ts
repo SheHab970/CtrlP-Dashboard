@@ -6,12 +6,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
+  getProductById(id: string) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private _http: HttpClient) {}
 
   baseUrl: string = `https://ctrl-p.runasp.net/api/`;
 
   private authToken: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQWRtaW4iLCJqdGkiOiJkNGYxYzk3OS1kNDY2LTRiZDEtYjFiYS01YTQzYzhlZmE1ODkiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMSIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE1NyIsImV4cCI6MTczNDUzNzQ5NCwiaWF0IjoxNzM0NDc3NDk0LCJuYmYiOjE3MzQ0Nzc0OTR9.7QNO1s2bqj1h0lNxymQHmRFdjM3dZshl7n8v101iJhc';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiZW1hbjEyMyIsImp0aSI6IjI1ODNiNGNmLTEwNTEtNGIxMC04NjMwLTJmMTQ2MzA5ODE3ZCIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxMCIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0IiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE1NyIsImV4cCI6MTczNDYwMzkzNywiaWF0IjoxNzM0NTQzOTM3LCJuYmYiOjE3MzQ1NDM5Mzd9.EKY1kS8YlE-1oZ38p_eT8sY_aYtspCDws5XxbjNPNOE';
   setAuthToken(newToken: string): void {
     this.authToken = newToken;
   }
@@ -31,7 +34,7 @@ export class ProductService {
 
   // Get the list of products
   getProductlist(): Observable<any> {
-    return this._http.get('https://ecommerce.routemisr.com/api/v1/products');
+    return this._http.get(this.baseUrl + 'Product/GetAllProducts/');
   }
 
   getCatlist(): Observable<any> {
@@ -48,6 +51,15 @@ export class ProductService {
     return this._http.post('https://ctrl-p.runasp.net/api/Product', data, {
       headers: this.getHeaders(),
     });
+  }
+  UpdateProduct(data: FormData): Observable<any> {
+    return this._http.put(
+      'https://ctrl-p.runasp.net/api/Product/UpdateProduct',
+      data,
+      {
+        headers: this.getHeaders(),
+      }
+    );
   }
 
   // Add category
