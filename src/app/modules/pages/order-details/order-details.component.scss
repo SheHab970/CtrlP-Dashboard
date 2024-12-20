@@ -27,10 +27,9 @@
                     }
                 }
                 .option{
-                    .dropdownMenue{
-                        button:hover{
-                            background-color: #bdbdbd;
-                        }
+                    .drop-down{
+                        background-color: black;
+                        width: 190px;
                     }
                 }
             }
@@ -149,10 +148,12 @@
                     color: var(--MainColor);
                     font-size: 20px;
                     text-align: center;
+                    border: none;
                   }
                   td{
                     text-align: center;
                     color: var(--ParagraphColor);
+                    border: none;
                   }
             }
             .resit{

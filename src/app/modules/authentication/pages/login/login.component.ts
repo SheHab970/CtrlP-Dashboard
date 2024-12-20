@@ -76,7 +76,7 @@ export class LoginComponent {
         },
         error: (err) => {
           this.loginForm.reset();
-          this.errorMassage = 'Check your Email or Password';        
+          this.errorMassage = 'Check your Username or Password';        
         },
       });
     }else{

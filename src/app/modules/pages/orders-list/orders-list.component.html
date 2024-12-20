@@ -1,45 +1,45 @@
 <section class="order_section">
     <div class="section_head d-flex justify-content-center">
-        <div class="search_component">
+        <div class="search_component d-flex justify-content-between align-items-center">
             <app-search />
         </div>
     </div>
     <div class="order_table">
         <p-table 
-            [value]="products"
+            [value]="orders_list"
             styleClass="p-datatable-gridlines" 
             dataKey="id" [tableStyle]="{'min-width': '60rem'}"
             [paginator]="true"
-            [rows]="11" 
+            [rows]="10" 
             [rowsPerPageOptions]="[5, 10, 20] " 
             class=""
         >
             <ng-template pTemplate="header">
                 <tr>
                     <th>Tracking ID</th>
-                    <th>Customer</th>
+                    <th>User ID</th>
                     <th>Date</th>
-                    <th>Amount</th>
+                    <th>Total Price</th>
                     <th>Payment Mode</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-order>
-                <tr routerLink="order-detials" class="Order">
-                    <td>#3548725</td>
-                    <td>sanderson</td>
-                    <td>18/5/2024</td>
-                    <td>$20</td>
-                    <!-- <td>{{ order.amount | currency : 'USD' }}</td> -->
-                    <td>Transfer Bank</td>
+                <tr class="Order">
+                    <td>#{{order.id}}</td>
+                    <td>{{ order.userId }}</td>
+                    <td>{{order.orderDate}}</td>
+                    <td>${{order.totalPrice}}</td>
+                    <!-- <td>{{ order.paymentMethod | currency : 'USD' }}</td> -->
+                    <td>{{order.paymentMethod}}</td>
                     <td>
-                        <p-tag [severity]="'success'">Deliverd</p-tag>
+                        <p-tag [severity]="getSeverity(order.orderStatus)" [value]="order.orderStatus"></p-tag>
                     </td>
                     <td>
                         <div class="action_icons d-flex justify-content-around align-items-center">
-                            <div class="showIcon">
-                                <i class="fa-solid fa-eye"></i>
+                            <div [routerLink]="['order-detials/' , order.id]" class="showIcon">
+                                <i class="fa-solid fa-eye" title="Show Details"></i>
                             </div>
                         </div>
                     </td>
