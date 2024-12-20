@@ -26,7 +26,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-order>
-                <tr routerLink="order-detials" class="Order">
+                <tr class="Order">
                     <td>#{{order.id}}</td>
                     <td>{{ order.userId }}</td>
                     <td>{{order.orderDate}}</td>
@@ -34,12 +34,12 @@
                     <!-- <td>{{ order.paymentMethod | currency : 'USD' }}</td> -->
                     <td>{{order.paymentMethod}}</td>
                     <td>
-                        <p-tag [severity]="'success'">{{order.orderStatus}}</p-tag>
+                        <p-tag [severity]="getSeverity(order.orderStatus)" [value]="order.orderStatus"></p-tag>
                     </td>
                     <td>
                         <div class="action_icons d-flex justify-content-around align-items-center">
-                            <div class="showIcon">
-                                <i class="fa-solid fa-eye"></i>
+                            <div [routerLink]="['order-detials/' , order.id]" class="showIcon">
+                                <i class="fa-solid fa-eye" title="Show Details"></i>
                             </div>
                         </div>
                     </td>
