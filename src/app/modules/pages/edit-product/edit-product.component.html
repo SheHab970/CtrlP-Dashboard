@@ -1,95 +1,86 @@
-z<div class="d-flex justify-content-center align-items-center p-4 m-4">
+<div class="edit-product-container">
+    <!-- Product Name Input -->
+    <div class="form-group">
+        <label for="product-name">Product Name:</label>
+        <input id="product-name" [(ngModel)]="product.name" type="text" class="form-control"
+            placeholder="Enter product name" />
+    </div>
 
-    <div class="w-75 mx-auto p-4 m-5 addProduct ">
+    <!-- Product Description Input -->
+    <div class="form-group">
+        <label for="product-description">Product Description:</label>
+        <textarea id="product-description" [(ngModel)]="product.description" class="form-control"
+            placeholder="Enter product description"></textarea>
+    </div>
 
-        <div class="mb-3 text-white">
+    <!-- Product Price Input -->
+    <div class="form-group">
+        <label for="product-price">Price:</label>
+        <input id="product-price" [(ngModel)]="product.price" type="number" class="form-control"
+            placeholder="Enter product price" />
+    </div>
 
-            <i class="fa-solid fa-right-to-bracket"></i> Type Of Product:
+    <!-- Product Old Price Input -->
+    <div class="form-group">
+        <label for="product-oldPrice">Old Price:</label>
+        <input id="product-oldPrice" [(ngModel)]="product.oldPrice" type="number" class="form-control"
+            placeholder="Enter old price" />
+    </div>
+
+    <!-- Units In Stock Input -->
+    <div class="form-group">
+        <label for="product-unitsInStock">Units in Stock:</label>
+        <input id="product-unitsInStock" [(ngModel)]="product.unitsInStock" type="number" class="form-control"
+            placeholder="Enter units in stock" />
+    </div>
+
+    <!-- Image Management Section -->
+    <!-- <div class="form-group">
+        <label for="newImageUrl">Add Image:</label>
+        <input id="newImageUrl" [(ngModel)]="newImageUrl" type="text" class="form-control"
+            placeholder="Enter image URL" />
+        <button (click)="addImage()" class="btn btn-primary mt-2">Add Image</button>
+    </div> -->
+
+    <!-- Display Added Images -->
+    <div *ngIf="selectedImages.length > 0" class="image-list mt-3">
+        <h4>Selected Images:</h4>
+        <div *ngFor="let image of selectedImages" class="image-item">
+            <img [src]="'https://ctrl-p.runasp.net/'+product.url[0]" alt="Image preview" class="image-thumbnail"
+                width="50" />
+            <button (click)="removeImage(image)" class="btn btn-danger btn-sm ml-2">Remove</button>
         </div>
+    </div>
+
+    <label>Images:</label>
+    <input type="file" multiple (change)="onFileSelected($event)" />
+    <div class="form-group mt-4">
+        <label for="frames">Frames:</label>
+        <p-multiSelect [options]="frames" [(ngModel)]="FramesNames" optionLabel="name"
+            placeholder="Select frames"></p-multiSelect>
+    </div>
+
+    <div class="form-group mt-4">
+        <label for="sizes">Sizes:</label>
+        <p-multiSelect [options]="sizes" [(ngModel)]="SizesNames" optionLabel="name"
+            placeholder="Select sizes"></p-multiSelect>
+    </div>
+
+    <div class="form-group mt-4">
+        <label for="materials">Materials:</label>
+        <p-multiSelect [options]="materials" [(ngModel)]="MaterialsNames" optionLabel="name"
+            placeholder="Select materials"></p-multiSelect>
+    </div>
+
+    <div class="form-group mt-4">
+        <label for="categories">Categories:</label>
+        <p-multiSelect [options]="categories" [(ngModel)]="CategoryNames" optionLabel="name"
+            placeholder="Select categories"></p-multiSelect>
+    </div>
 
 
-        <form>
-            <div class="row gy-4">
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="name">Name:</label>
-                        <input id="name" type="text" class="form-control" placeholder=" Enter Name:">
-
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="price">Price:</label>
-                        <input id="price" type="number" class="form-control" placeholder=" Enter Price:">
-
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="price_before">Price Before Discount:</label>
-                        <input id="price_before" type="number" class="form-control"
-                            placeholder=" Enter Price Before Discount:">
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="Category">Category:</label>
-                        <input id="Category" class="form-control" placeholder=" Choose Category:">
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="Material">Material:</label>
-                        <input id="Material" class="form-control" placeholder=" Choose Material:">
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="Frame">Frame:</label>
-                        <input id="Frame" class="form-control" placeholder=" Choose Frame:">
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="Size">Size:</label>
-                        <input id="Size" class="form-control" placeholder=" Choose Size:">
-
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div>
-
-                        <label for="img">Product Image:</label>
-                        <input id="img" class="form-control" type="file" placeholder=" Choose Product Image:">
-
-                    </div>
-                </div>
-            </div>
-
-            <button class="form-control mt-5 addButton">
-                UPDATE:
-            </button>
-        </form>
-
-
-
-
-
-
-
+    <!-- Update Product Button -->
+    <div class="form-group mt-4">
+        <button (click)="updateProduct()" class="btn btn-success">Update Product</button>
     </div>
 </div>
