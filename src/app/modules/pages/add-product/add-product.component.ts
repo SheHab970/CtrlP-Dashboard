@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -19,18 +19,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ProductService } from '../../../core/services/product.service';
-interface Frame {
-  name: string;
-}
-interface Size {
-  name: string;
-}
-interface cat {
-  name: string;
-}
-interface Material {
-  name: string;
-}
+import { Frame } from '../../../core/interface/frame';
+import { Material } from '../../../core/interface/material';
+import { Size } from '../../../core/interface/size';
+import { Cat } from '../../../core/interface/cat';
+
 @Component({
   selector: 'app-add-product',
   standalone: true,
@@ -53,6 +46,7 @@ interface Material {
   styleUrls: ['./add-product.component.scss'],
 })
 export class AddProductComponent implements OnInit {
+  constructor(private router: Router) {}
   ProductService = inject(ProductService);
   messageService = inject(MessageService);
   cdr = inject(ChangeDetectorRef);
@@ -62,14 +56,14 @@ export class AddProductComponent implements OnInit {
   OldPrice: number = 0;
   UnitsInStock: number = 5;
   selectedFrame: Frame[] = [];
-  CategoryNames: cat[] = [];
+  CategoryNames: Cat[] = [];
   selectedMaterial: Material[] = [];
   selectedSize: Size[] = [];
   selectedFiles: File[] = [];
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      this.selectedFiles = Array.from(input.files); // Convert FileList to Array
+      this.selectedFiles = Array.from(input.files);
     }
   }
   frames: any[] = [];
@@ -319,7 +313,6 @@ export class AddProductComponent implements OnInit {
       formData.append('Image', file);
     });
 
-    // Manually loop through FormData for debugging
     formData.forEach((value, key) => {
       console.log(key, value);
     });
@@ -333,6 +326,10 @@ export class AddProductComponent implements OnInit {
           summary: 'Success',
           detail: 'New Product added successfully!',
         });
+
+        setTimeout(() => {
+          this.router.navigate(['/dashboard/Product']);
+        }, 1000);
       },
       error: (error) => {
         console.error('Error adding product:', error);
@@ -344,7 +341,6 @@ export class AddProductComponent implements OnInit {
       },
       complete: () => {
         console.log('Request complete.');
-        // Logic when the request is complete (successful or not)
       },
     });
   }

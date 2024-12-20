@@ -41,31 +41,12 @@ export class MassageComponent implements OnInit {
   constructor(private router: Router) {}
   statuses!: SelectItem[];
   ProductService = inject(ProductService);
-  cities!: any[];
 
-  selectedCities!: any[];
   ngOnInit(): void {
-    this.ProductService.getCategories().subscribe({
+    this.ProductService.getCatlist().subscribe({
       next: (value: any) => {
-        this.Categories = value.data;
+        this.Categories = value;
       },
     });
-
-    this.cities = [
-      { name: 'New York', code: 'NY' },
-      { name: 'Rome', code: 'RM' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' },
-      { name: 'London', code: 'LDN' },
-      { name: 'Istanbul', code: 'IST' },
-      { name: 'Paris', code: 'PRS' },
-    ];
   }
 }
