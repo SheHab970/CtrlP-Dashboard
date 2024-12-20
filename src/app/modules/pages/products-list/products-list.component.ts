@@ -39,7 +39,7 @@ import { SearchComponent } from '../../../share/componrnts/search/search.compone
 export class ProductsListComponent implements OnInit {
   constructor(private router: Router) {}
   statuses!: SelectItem[];
-  list: list[] = [];
+  list: any[] = [];
   ProductService = inject(ProductService);
   messageService = inject(MessageService);
 

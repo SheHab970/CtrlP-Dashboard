@@ -14,17 +14,9 @@ export class CategoryService {
     this.authToken = newToken;
   }
 
-  private getAuthHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      Authorization: `Bearer ${this.authToken}`,
-    });
-  }
-
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       Authorization: `Bearer ${this.authToken}`,
-      'Content-Type':
-        'multipart/form-data; boundary=----WebKitFormBoundary8whQfCkjnyTTklPF',
     });
   }
 
