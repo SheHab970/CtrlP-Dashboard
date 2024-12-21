@@ -47,9 +47,9 @@ tfoot,
 tr,
 td,
 th {
-  // border: none;
+  border: none;
 
-  background-color: var(--backgroundColor);
+  // background-color: var(--backgroundColor);
 }
 
 // /* Add this CSS to create space between each table row */
@@ -89,6 +89,9 @@ th {
     }
     tr:nth-child(odd) {
       background-color: #202020;
+    }
+    tr:nth-child(even){
+      background-color: var(--backgroundColor);
     }
     th {
       background-color: var(--backgroundColor);
