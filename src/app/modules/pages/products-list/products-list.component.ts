@@ -84,4 +84,21 @@ export class ProductsListComponent implements OnInit {
   addProduct() {
     this.router.navigate(['/dashboard/addProduct']);
   }
+  delete(productId: number, index: number): void {
+    if (confirm('Are you sure you want to delete this product?')) {
+      this.ProductService.deleteProduct(productId).subscribe({
+        next: () => {
+          console.log('done');
+        },
+        error: (err) => {
+          console.error('Error deleting product:', err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to delete product',
+          });
+        },
+      });
+    }
+  }
 }

@@ -32,7 +32,8 @@
                     <td>
                         <div class="d-flex align-items-center justify-content-center gap-3">
                             <span class="action-icon">
-                                <i class="fa-solid fa-trash text-danger" title="Delete"></i>
+                                <i class="fa-solid fa-trash text-danger" title="Delete"
+                                    (click)="deleteCategory(category.id,i)"></i>
                             </span>
                             <span class="action-icon">
                                 <i class="fa-regular fa-pen-to-square text-success editButton" title="Edit"

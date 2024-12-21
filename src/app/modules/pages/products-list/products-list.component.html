@@ -8,7 +8,7 @@
     </div>
     <div class="ListTable">
         <p-table [value]="list" styleClass="p-datatable-gridlines" dataKey="id" [tableStyle]="{'min-width': '60rem'}"
-            [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20] ">
+            [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20] ">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="name">Name </th>
@@ -39,7 +39,8 @@
                     <td>
                         <div class="d-flex align-items-center justify-content-center gap-3">
                             <span class="action-icon">
-                                <i class="fa-solid fa-trash text-danger fs-5" title="Delete"></i>
+                                <i class="fa-solid fa-trash text-danger fs-5" title="Delete"
+                                    (click)="delete(product.id,i)"></i>
                             </span>
                             <span class="action-icon">
                                 <i class="fa-regular fa-pen-to-square text-success fs-5 editButton" title="Edit"
