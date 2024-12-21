@@ -48,8 +48,25 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  lockUser(user: Users): void {
-    alert(`Locking user: ${user.userName}`);
-    user.isLockedOut = !user.isLockedOut; // Toggle lock status for the clicked user
+  // lockUser(id: number): void {
+  //   this.usersService.toggleUser(id).subscribe({
+  //     next: (data) => {
+  //       console.log(data);
+  //       console.log('done');
+  //     },
+  //   });
+  //   console.log(id);
+  // }
+
+  lockUser(id: number, user: Users): void {
+    this.usersService.toggleUser(id).subscribe({
+      next: () => {
+        user.isLockedOut = !user.isLockedOut; // Toggle the isLockedOut property locally
+        console.log(`User ${id} lock state updated to: ${user.isLockedOut}`);
+      },
+      error: (err) => {
+        console.error(`Failed to toggle lock state for user ${id}:`, err);
+      },
+    });
   }
 }
