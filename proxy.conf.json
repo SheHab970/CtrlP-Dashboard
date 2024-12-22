@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://ctrl-p.runasp.net",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

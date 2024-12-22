@@ -212,14 +212,13 @@
 //   }
 // }
 
-import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { ProductService } from '../../../core/services/product.service';
-import { ChangeDetectorRef } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ProductService } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -362,23 +361,52 @@ export class EditProductComponent implements OnInit {
   }
   // Function to update the product
   updateProduct() {
-    const updatedProductData = {
-      Id: this.product.id,
-      Name: this.product.name,
-      Description: this.product.description,
-      Price: this.product.price,
-      OldPrice: this.product.oldPrice,
-      UnitsInStock: this.product.unitsInStock,
-      CategoryNames: this.product.categoryNames,
-      FramesNames: this.product.framesNames,
-      MaterialsNames: this.product.materialsNames,
-      SizesNames: this.product.sizesNames,
-      Image: this.selectedFiles,
-    };
+    // const updatedProductData = {
+    //   Id: this.product.id,
+    //   Name: this.product.name,
+    //   Description: this.product.description,
+    //   Price: this.product.price,
+    //   OldPrice: this.product.oldPrice,
+    //   UnitsInStock: this.product.unitsInStock,
+    //   CategoryNames: this.product.categoryNames,
+    //   FramesNames: this.product.framesNames,
+    //   MaterialsNames: this.product.materialsNames,
+    //   SizesNames: this.product.sizesNames,
+    //   Image: this.selectedFiles,
+    // };
 
-    console.log(updatedProductData);
+    const formData = new FormData();
+    formData.append('Id', this.product.id);
+    formData.append('Name', this.product.name);
+    formData.append('Description', this.product.description);
+    formData.append('Price', this.product.price.toString());
+    formData.append('OldPrice', this.product.oldPrice.toString());
+    formData.append('UnitsInStock', this.product.unitsInStock.toString());
+    this.CategoryNames.forEach((categoryName: any) => {
+      formData.append('CategoryNames', categoryName.name);
+    });
 
-    this.ProductService.UpdateProduct(updatedProductData).subscribe({
+    this.FramesNames.forEach((frameName: any) => {
+      formData.append('FramesNames', frameName.name);
+    });
+
+    this.SizesNames.forEach((sizeName: any) => {
+      formData.append('SizesNames', sizeName.name);
+    });
+
+    this.MaterialsNames.forEach((materialName: any) => {
+      formData.append('MaterialsNames', materialName.name);
+    });
+
+    this.selectedFiles.forEach((file) => {
+      formData.append('Image', file);
+    });
+
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+
+    this.ProductService.UpdateProduct(formData).subscribe({
       next: (data) => {
         console.log(data);
       },
