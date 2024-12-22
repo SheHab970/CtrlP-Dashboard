@@ -1,20 +1,17 @@
-import { ProductService } from './../../../core/services/product.service';
-import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { RatingModule } from 'primeng/rating';
-import { TagModule } from 'primeng/tag';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
-import { list } from '../../../core/interface/product';
-import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouterModule, RouterLink } from '@angular/router';
-import { Router } from '@angular/router';
-import { Dialog } from 'primeng/dialog';
+import { RatingModule } from 'primeng/rating';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
 import { SearchComponent } from '../../../share/componrnts/search/search.component';
+import { ProductService } from './../../../core/services/product.service';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -44,11 +41,17 @@ export class ProductsListComponent implements OnInit {
   messageService = inject(MessageService);
 
   ngOnInit(): void {
+    this.fetchData();
+  }
+
+  fetchData(): void {
     this.ProductService.getProductlist().subscribe((data: any) => {
       this.list = data.map((product: any) => ({
         ...product,
         inventoryStatus: this.getDefaultStatus(product), // Assign a status
       }));
+
+      console.log(data);
 
       this.statuses = [
         { label: 'In Stock', value: 'INSTOCK' },
@@ -60,9 +63,9 @@ export class ProductsListComponent implements OnInit {
 
   getDefaultStatus(product: any): string {
     // Example logic for assigning status based on price (customize as needed)
-    if (product.UnitsInStock < 20) {
+    if (product.unitsInStock > 10) {
       return 'INSTOCK';
-    } else if (product.UnitsInStock > 10) {
+    } else if (product.unitsInStock <= 10) {
       return 'LOWSTOCK';
     } else {
       return 'OUTOFSTOCK';
@@ -84,11 +87,16 @@ export class ProductsListComponent implements OnInit {
   addProduct() {
     this.router.navigate(['/dashboard/addProduct']);
   }
-  delete(productId: number, index: number): void {
+  delete(productId: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
       this.ProductService.deleteProduct(productId).subscribe({
         next: () => {
-          console.log('done');
+          this.fetchData();
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Successfully deleted product',
+          });
         },
         error: (err) => {
           console.error('Error deleting product:', err);

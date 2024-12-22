@@ -1,44 +1,30 @@
 <div class="d-flex justify-content-center align-items-center p-4 m-4">
+  <div class="w-75 mx-auto p-4 m-5 addProduct">
+    <h2 class="h1 mb-3 text-white">Edit Category</h2>
 
-    <div class="w-75 mx-auto p-4 m-5 addProduct ">
-
-        <div class="mb-3 text-white">
-
-            <i class="fa-solid fa-right-to-bracket"></i> Type Of Category:
+    <form>
+      <div class="row gy-4">
+        <div class="col-md-12">
+          <div>
+            <label for="name">Name:</label>
+            <input
+              id="name"
+              type="text"
+              class="form-control"
+              placeholder="Category new name"
+            />
+          </div>
         </div>
 
-        e <form>
-            <div class="row gy-4">
-                <div class="col-md-12">
-                    <div>
+        <div class="col-md-12">
+          <div>
+            <label for="img" class="d-block">Category Image:</label>
+            <input id="img" class="formfile" type="file" />
+          </div>
+        </div>
+      </div>
 
-                        <label for="name">Name:</label>
-                        <input id="name" type="text" class="form-control" placeholder=" Enter Name:">
-
-                    </div>
-                </div>
-
-
-                <div class="col-md-12">
-                    <div>
-
-                        <label for="img">Category Image:</label>
-                        <input id="img" class="form-control" type="file" placeholder=" Choose Product Image:">
-
-                    </div>
-                </div>
-            </div>
-
-            <button class="form-control mt-5 addButton">
-                UPDATE:
-            </button>
-        </form>
-
-
-
-
-
-
-
-    </div>
+      <button class="btn btn-main mt-5 w-100 fw-bold">UPDATE:</button>
+    </form>
+  </div>
 </div>

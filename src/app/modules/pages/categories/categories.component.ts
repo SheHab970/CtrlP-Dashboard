@@ -1,20 +1,18 @@
-import { ProductService } from './../../../core/services/product.service';
-import { Categories } from '../../../core/interface/categories';
-import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { RatingModule } from 'primeng/rating';
-import { TagModule } from 'primeng/tag';
+import { Router, RouterModule } from '@angular/router';
 import { MessageService, SelectItem } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { RouterModule } from '@angular/router';
-import { Router } from '@angular/router';
-import { SearchComponent } from '../../../share/componrnts/search/search.component';
+import { RatingModule } from 'primeng/rating';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
+import { Categories } from '../../../core/interface/categories';
 import { CategoryService } from '../../../core/services/category.service';
+import { SearchComponent } from '../../../share/componrnts/search/search.component';
 @Component({
   selector: 'app-categories',
   standalone: true,
@@ -43,6 +41,10 @@ export class CategoriesComponent implements OnInit {
   CategoryService = inject(CategoryService);
 
   ngOnInit(): void {
+    this.fetchCategories();
+  }
+
+  fetchCategories(): void {
     this.CategoryService.getCategories().subscribe({
       next: (data) => {
         this.Categories = data;
@@ -61,6 +63,7 @@ export class CategoriesComponent implements OnInit {
         next: () => {
           console.log(`Category with ID ${CategoryId} deleted successfully.`);
           this.Categories.splice(index, 1); // Remove the deleted item from UI
+          this.fetchCategories();
         },
         error: (err) => {
           console.error('Error deleting category:', err);
