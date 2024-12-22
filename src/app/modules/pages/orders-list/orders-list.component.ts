@@ -25,15 +25,29 @@ import { log } from 'node:console';
 })
 export class OrdersListComponent implements OnInit {
 
-  products: any[] = [];
+  orders_list: any[] = [];
 
-  constructor(private order_list: OrderService){}
+  constructor(private orders: OrderService){}
 
   ngOnInit(): void {
-    this.order_list.getOrders().subscribe((res: any)=>{
-      this.products = res;
-      // console.log('orders',res);
+    this.orders.getOrders().subscribe((res: any)=>{
+      this.orders_list = res;
+      console.log(this.orders_list);
       
     });
+
+  }
+
+  getSeverity(status: string) {
+    switch (status) {
+      case 'Created':
+        return 'contrast';
+      case 'Packed':
+        return 'info'; 
+      case 'Delivered':
+        return 'success'; 
+      default:
+        return 'secondary'; 
+    }
   }
 }

@@ -37,6 +37,7 @@ import { CategoryService } from '../../../core/services/category.service';
 })
 export class CategoriesComponent implements OnInit {
   Categories: Categories[] = [];
+  messageService: any;
   constructor(private router: Router) {}
   statuses!: SelectItem[];
   CategoryService = inject(CategoryService);
@@ -52,5 +53,24 @@ export class CategoriesComponent implements OnInit {
 
   addCategory() {
     this.router.navigate(['/dashboard/addCategory']);
+  }
+
+  deleteCategory(CategoryId: number, index: number): void {
+    if (confirm('Are you sure you want to delete this category?')) {
+      this.CategoryService.deleteCategory(CategoryId).subscribe({
+        next: () => {
+          console.log(`Category with ID ${CategoryId} deleted successfully.`);
+          this.Categories.splice(index, 1); // Remove the deleted item from UI
+        },
+        error: (err) => {
+          console.error('Error deleting category:', err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to delete the category. Please try again.',
+          });
+        },
+      });
+    }
   }
 }

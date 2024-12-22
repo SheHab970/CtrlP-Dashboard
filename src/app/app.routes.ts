@@ -53,7 +53,7 @@ export const routes: Routes = [
       },
 
       {
-        path: 'orders/order-detials',
+        path: 'orders/order-detials/:id',
         loadComponent: () =>
           import('./modules/pages/order-details/order-details.component').then(
             (c) => c.OrderDetailsComponent
