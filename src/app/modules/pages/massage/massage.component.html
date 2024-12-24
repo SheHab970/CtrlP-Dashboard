@@ -1,42 +1,28 @@
 <section class="listSection">
     <div class="InnerSection d-flex justify-content-center">
-        <div class="search_component">
-            <app-search />
 
-        </div>
     </div>
     <div class="ListTable">
-        <p-table [value]="Categories" styleClass="p-datatable-gridlines" dataKey="id"
+        <p-table [value]="messages" styleClass="p-datatable-gridlines" dataKey="id"
             [tableStyle]="{'min-width': '60rem'}" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[ 10, 20] ">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Id</th>
+                    <th>User Id</th>
                     <th>Email</th>
-                    <th>Phone Number</th>
                     <th>Subject</th>
                     <th>Massage</th>
-                    <th>Actions</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-category let-i="rowIndex">
+            <ng-template pTemplate="body" let-message let-i="rowIndex">
                 <tr class="list">
-                    <td class="text-center">{{ category.id }}</td>
-                    <td class="text-center">{{ category.id }}</td>
-                    <td class="text-center">{{ category.name }}</td>
-                    <td>{{ category.name }}</td>
+                    <td class="text-center">{{ message.id }}</td>
+                    <td class="text-center">{{ message.userId }}</td>
+                    <td class="text-center">{{ message.contactEmail }}</td>
+                    <td class="text-center ">{{ message.subject }}</td>
+                    <td class="text-center w-25">{{ message.content }}</td>
 
-                    <td>{{ category.name }}</td>
 
-                    <td>
-                        <div class="d-flex align-items-center justify-content-center gap-3">
-                            <span class="action-icon">
-                                <i class="fa-solid fa-trash text-danger" title="Delete"></i>
-                            </span>
-                            <span class="action-icon">
-                                <i class="fa-regular fa-pen-to-square text-success" title="Edit"></i>
-                            </span>
-                        </div>
-                    </td>
                 </tr>
             </ng-template>
             <ng-template pTemplate="summary">
