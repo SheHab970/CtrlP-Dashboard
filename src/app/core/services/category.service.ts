@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -25,7 +25,6 @@ export class CategoryService {
   }
 
   // Add category
-
   addCategory(data: FormData): Observable<any> {
     return this._http.post('https://ctrl-p.runasp.net/api/Category/add', data, {
       headers: this.getAuthHeaders(),

@@ -51,7 +51,7 @@ export class ProductService {
       headers: this.getHeaders(),
     });
   }
-  UpdateProduct(data: object): Observable<any> {
+  UpdateProduct(data: FormData): Observable<any> {
     return this._http.put(
       'https://ctrl-p.runasp.net/api/Product/UpdateProduct',
       data,

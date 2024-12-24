@@ -1,86 +1,152 @@
-<div class="edit-product-container">
-    <!-- Product Name Input -->
-    <div class="form-group">
+<div class="edit-product-container container">
+  <div class="row g-4">
+    <div class="col-lg-6 d-flex align-items-center">
+      <!-- Product Name Input -->
+      <div class="form-group w-100">
         <label for="product-name">Product Name:</label>
-        <input id="product-name" [(ngModel)]="product.name" type="text" class="form-control"
-            placeholder="Enter product name" />
+        <input
+          id="product-name"
+          [(ngModel)]="product.name"
+          type="text"
+          class="form-control"
+          placeholder="Enter product name"
+        />
+      </div>
     </div>
 
-    <!-- Product Description Input -->
-    <div class="form-group">
-        <label for="product-description">Product Description:</label>
-        <textarea id="product-description" [(ngModel)]="product.description" class="form-control"
-            placeholder="Enter product description"></textarea>
-    </div>
-
-    <!-- Product Price Input -->
-    <div class="form-group">
+    <div class="col-lg-6 d-flex align-items-center">
+      <!-- Product Price Input -->
+      <div class="form-group w-100">
         <label for="product-price">Price:</label>
-        <input id="product-price" [(ngModel)]="product.price" type="number" class="form-control"
-            placeholder="Enter product price" />
+        <input
+          id="product-price"
+          [(ngModel)]="product.price"
+          type="number"
+          class="form-control"
+          placeholder="Enter product price"
+        />
+      </div>
     </div>
-
-    <!-- Product Old Price Input -->
-    <div class="form-group">
+    <div class="col-lg-6 d-flex align-items-center">
+      <!-- Product Old Price Input -->
+      <div class="form-group w-100">
         <label for="product-oldPrice">Old Price:</label>
-        <input id="product-oldPrice" [(ngModel)]="product.oldPrice" type="number" class="form-control"
-            placeholder="Enter old price" />
+        <input
+          id="product-oldPrice"
+          [(ngModel)]="product.oldPrice"
+          type="number"
+          class="form-control"
+          placeholder="Enter old price"
+        />
+      </div>
     </div>
-
-    <!-- Units In Stock Input -->
-    <div class="form-group">
+    <div class="col-lg-6 d-flex align-items-center">
+      <!-- Units In Stock Input -->
+      <div class="form-group w-100">
         <label for="product-unitsInStock">Units in Stock:</label>
-        <input id="product-unitsInStock" [(ngModel)]="product.unitsInStock" type="number" class="form-control"
-            placeholder="Enter units in stock" />
+        <input
+          id="product-unitsInStock"
+          [(ngModel)]="product.unitsInStock"
+          type="number"
+          class="form-control"
+          placeholder="Enter units in stock"
+        />
+      </div>
     </div>
 
-    <!-- Image Management Section -->
-    <!-- <div class="form-group">
-        <label for="newImageUrl">Add Image:</label>
-        <input id="newImageUrl" [(ngModel)]="newImageUrl" type="text" class="form-control"
-            placeholder="Enter image URL" />
-        <button (click)="addImage()" class="btn btn-primary mt-2">Add Image</button>
-    </div> -->
-
-    <!-- Display Added Images -->
-    <div *ngIf="selectedImages.length > 0" class="image-list mt-3">
-        <h4>Selected Images:</h4>
-        <div *ngFor="let image of selectedImages" class="image-item">
-            <img [src]="'https://ctrl-p.runasp.net/'+product.url[0]" alt="Image preview" class="image-thumbnail"
-                width="50" />
-            <button (click)="removeImage(image)" class="btn btn-danger btn-sm ml-2">Remove</button>
-        </div>
+    <div class="col-lg-6 d-flex align-items-center">
+      <div class="form-group w-100">
+        <label for="categories " class="d-block">Categories:</label>
+        <p-multiSelect
+          [options]="categories"
+          [(ngModel)]="CategoryNames"
+          optionLabel="name"
+          placeholder="Select categories"
+          class="w-100"
+        ></p-multiSelect>
+      </div>
     </div>
 
-    <label>Images:</label>
-    <input type="file" multiple (change)="onFileSelected($event)" />
-    <div class="form-group mt-4">
-        <label for="frames">Frames:</label>
-        <p-multiSelect [options]="frames" [(ngModel)]="FramesNames" optionLabel="name"
-            placeholder="Select frames"></p-multiSelect>
+    <div class="col-lg-6 d-flex align-items-center">
+      <div class="form-group w-100">
+        <label for="frames" class="d-block">Frames:</label>
+        <p-multiSelect
+          [options]="frames"
+          [(ngModel)]="FramesNames"
+          optionLabel="name"
+          placeholder="Select frames"
+          class="w-100"
+        ></p-multiSelect>
+      </div>
     </div>
 
-    <div class="form-group mt-4">
-        <label for="sizes">Sizes:</label>
-        <p-multiSelect [options]="sizes" [(ngModel)]="SizesNames" optionLabel="name"
-            placeholder="Select sizes"></p-multiSelect>
+    <div class="col-lg-6 d-flex align-items-center">
+      <div class="form-group w-100">
+        <label for="sizes " class="d-block">Sizes:</label>
+        <p-multiSelect
+          [options]="sizes"
+          [(ngModel)]="SizesNames"
+          optionLabel="name"
+          placeholder="Select sizes"
+          class="w-100"
+        ></p-multiSelect>
+      </div>
+    </div>
+    <div class="col-lg-6 d-flex align-items-center">
+      <div class="form-group w-100">
+        <label for="materials " class="d-block">Materials:</label>
+        <p-multiSelect
+          [options]="materials"
+          [(ngModel)]="MaterialsNames"
+          optionLabel="name"
+          placeholder="Select materials"
+          class="w-100"
+        ></p-multiSelect>
+      </div>
     </div>
 
-    <div class="form-group mt-4">
-        <label for="materials">Materials:</label>
-        <p-multiSelect [options]="materials" [(ngModel)]="MaterialsNames" optionLabel="name"
-            placeholder="Select materials"></p-multiSelect>
+    <div class="col-12 d-flex align-items-center">
+      <!-- Product Description Input -->
+      <div class="form-group w-100">
+        <label for="product-description">Product Description:</label>
+        <textarea
+          rows="5"
+          id="product-description"
+          [(ngModel)]="product.description"
+          class="form-control"
+          placeholder="Enter product description"
+        ></textarea>
+      </div>
     </div>
 
-    <div class="form-group mt-4">
-        <label for="categories">Categories:</label>
-        <p-multiSelect [options]="categories" [(ngModel)]="CategoryNames" optionLabel="name"
-            placeholder="Select categories"></p-multiSelect>
+    <div class="col-12">
+      <!-- Update Product Button -->
+      <div class="form-group w-100 w-100">
+        <button (click)="updateProduct()" class="btn btn-main w-100">
+          Update Product
+        </button>
+      </div>
     </div>
 
+    <div class="col-lg-6 d-flex align-items-center"></div>
+    <div class="col-lg-6 d-flex align-items-center"></div>
+  </div>
 
-    <!-- Update Product Button -->
-    <div class="form-group mt-4">
-        <button (click)="updateProduct()" class="btn btn-success">Update Product</button>
-    </div>
+  <!-- Display Added Images -->
+  <div class="image-list mt-3">
+    <p class="text-danger">
+      NOTE** If you don't want to update the images don't select
+    </p>
+    <p class="text-danger">
+      NOTE** You can not update just one image you should update all of them
+    </p>
+  </div>
+
+  <label class="d-block">Images:</label>
+  <input
+    type="file"
+    multiple
+    class="inputfile"
+    (change)="onFileSelected($event)"
+  />
 </div>

@@ -1,61 +1,93 @@
-<section class="listSection" *ngIf="list.length>0">
-    <div class="InnerSection d-flex justify-content-center">
-        <div class="search_component">
-            <app-search />
-            <button class="btn-main " (click)="addProduct()">Add Product <i class="fa-solid fa-plus ms-1"></i></button>
+<p-toast />
 
+<section class="listSection">
+  <div class="InnerSection d-flex justify-content-center">
+    <div class="search_component">
+      <app-search />
+      <button class="btn-main" (click)="addProduct()">
+        Add Product <i class="fa-solid fa-plus ms-1"></i>
+      </button>
+    </div>
+  </div>
+  <div class="ListTable mt-5" *ngIf="list.length > 0; else noTable">
+    <p-table
+      [value]="list"
+      styleClass="p-datatable-gridlines"
+      dataKey="id"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      [paginator]="true"
+      [rows]="20"
+      [rowsPerPageOptions]="[20]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">Name</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>price before discount</th>
+          <th>Reviews</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product let-i="rowIndex">
+        <tr class="list">
+          <td>{{ product.name }}</td>
+          <td>
+            <img
+              [src]="'https://ctrl-p.runasp.net/' + product.url[0]"
+              [alt]="product.name"
+              width="100"
+              class="shadow-4"
+            />
+          </td>
+          <td>{{ product.price | currency : "SAR " }}</td>
+          <td>
+            {{
+              product.oldPrice ? (product.oldPrice | currency : "SAR ") : "_"
+            }}
+          </td>
+          <td>
+            <p-rating [(ngModel)]="product.rating" [readonly]="true"></p-rating>
+          </td>
+
+          <td>
+            <p-tag
+              [value]="product.inventoryStatus"
+              [severity]="getSeverity(product.inventoryStatus)"
+            ></p-tag>
+          </td>
+          <td>
+            <div class="d-flex align-items-center justify-content-center gap-3">
+              <span class="action-icon">
+                <i
+                  class="fa-solid fa-trash text-danger fs-5"
+                  title="Delete"
+                  (click)="delete(product.id)"
+                ></i>
+              </span>
+              <span class="action-icon">
+                <i
+                  class="fa-regular fa-pen-to-square text-success fs-5 editButton"
+                  title="Edit"
+                  [routerLink]="['/dashboard/Product/editProduct', product.id]"
+                ></i>
+              </span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-around">
+          In total, there are {{ list.length }} products.
         </div>
-    </div>
-    <div class="ListTable">
-        <p-table [value]="list" styleClass="p-datatable-gridlines" dataKey="id" [tableStyle]="{'min-width': '60rem'}"
-            [paginator]="true" [rows]="20" [rowsPerPageOptions]="[20] ">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th pSortableColumn="name">Name </th>
-                    <th>Image</th>
-                    <th>Price</th>
-                    <th>price before discount</th>
-                    <th>Reviews</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-product let-i="rowIndex">
-                <tr class="list">
-                    <td>{{ product.name }}</td>
-                    <td>
-                        <img [src]="'https://ctrl-p.runasp.net/'+product.url[0]" [alt]="product.name" width="100"
-                            class="shadow-4" />
-                    </td>
-                    <td>{{ product.price | currency: 'SAR ' }}</td>
-                    <td>{{ product.oldPrice ? (product.oldPrice | currency: 'SAR ') : '_' }}</td>
-                    <td>
-                        <p-rating [(ngModel)]="product.rating" [readonly]="true"></p-rating>
-                    </td>
+      </ng-template>
+    </p-table>
+  </div>
 
-                    <td>
-                        <p-tag [value]="product.UnitsInStock" [severity]="getSeverity(product.UnitsInStock)"></p-tag>
-                    </td>
-                    <td>
-                        <div class="d-flex align-items-center justify-content-center gap-3">
-                            <span class="action-icon">
-                                <i class="fa-solid fa-trash text-danger fs-5" title="Delete"
-                                    (click)="delete(product.id,i)"></i>
-                            </span>
-                            <span class="action-icon">
-                                <i class="fa-regular fa-pen-to-square text-success fs-5 editButton" title="Edit"
-                                    [routerLink]="['/dashboard/Product/editProduct', product.id]"></i>
-
-                            </span>
-                        </div>
-                    </td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="summary">
-                <div class="flex align-items-center justify-content-around ">
-                    In total, there are {{ list.length }} products.
-                </div>
-            </ng-template>
-        </p-table>
-    </div>
+  <ng-template #noTable>
+    <h2 class="h4 text-center mt-5">
+      There's no products yet, Start to add new products to your store !
+    </h2>
+  </ng-template>
 </section>
