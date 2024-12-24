@@ -12,7 +12,6 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { Categories } from '../../../core/interface/categories';
 import { CategoryService } from '../../../core/services/category.service';
-import { SearchComponent } from '../../../share/componrnts/search/search.component';
 @Component({
   selector: 'app-categories',
   standalone: true,
@@ -27,7 +26,6 @@ import { SearchComponent } from '../../../share/componrnts/search/search.compone
     DropdownModule,
     InputTextModule,
     RouterModule,
-    SearchComponent,
   ],
   providers: [MessageService], // Combine providers into one array
   templateUrl: './categories.component.html',
@@ -62,7 +60,7 @@ export class CategoriesComponent implements OnInit {
       this.CategoryService.deleteCategory(CategoryId).subscribe({
         next: () => {
           console.log(`Category with ID ${CategoryId} deleted successfully.`);
-          this.Categories.splice(index, 1); // Remove the deleted item from UI
+          this.Categories.splice(index, 1);
           this.fetchCategories();
         },
         error: (err) => {

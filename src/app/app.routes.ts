@@ -22,7 +22,7 @@ export const routes: Routes = [
       import('./modules/pages/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent
       ),
-      canActivate:[authGuard],
+    canActivate: [authGuard],
     children: [
       ///orders
       {
@@ -120,7 +120,7 @@ export const routes: Routes = [
       // & massage
 
       {
-        path: 'massage',
+        path: 'message',
         loadComponent: () =>
           import('./modules/pages/massage/massage.component').then(
             (c) => c.MassageComponent
