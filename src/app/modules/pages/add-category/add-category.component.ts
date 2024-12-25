@@ -16,7 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
+import { Toast, ToastModule } from 'primeng/toast';
 import { CategoryService } from '../../../core/services/category.service';
 
 @Component({
@@ -35,6 +35,7 @@ import { CategoryService } from '../../../core/services/category.service';
     DialogModule,
     SelectButtonModule,
     MultiSelectModule,
+    Toast,
   ],
   providers: [MessageService],
   templateUrl: './add-category.component.html',
@@ -75,14 +76,25 @@ export class AddCategoryComponent implements OnInit {
 
     this.CategoryService.addCategory(formData).subscribe({
       next: (data: any) => {
-        console.log('Product added successfully:', data);
-        this.uploadedImages = data.uploadedImageUrls;
+
+        this.uploadedImages = data.uploadedImageUrls; // Assuming the API returns image URLs
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: ' New category added successfully!',
+        });
+
         setTimeout(() => {
           this.router.navigate(['/dashboard/categories']);
         }, 1000);
       },
       error: (error) => {
         console.error('Error adding product:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to add category. Please try again.',
+        });
       },
     });
   }

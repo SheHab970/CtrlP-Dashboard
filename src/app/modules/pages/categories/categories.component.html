@@ -17,9 +17,40 @@
                     <th>Image</th>
                     <th>Category Name</th>
 
-                    <th>Actions</th>
-                </tr>
-            </ng-template>
+
+      <ng-template pTemplate="body" let-category let-i="rowIndex">
+        <tr>
+          <td class="text-center">{{ category.id }}</td>
+          <td>{{ category.name }}</td>
+          <td>
+            <img
+              [src]="'https://ctrl-p.runasp.net/' + category.imageUrl"
+              [alt]="category.name"
+              width="75"
+              class="shadow-4"
+            />
+          </td>
+          <td>
+            <div class="d-flex align-items-center justify-content-center gap-3">
+              <span class="action-icon">
+                <i
+                  class="fa-solid fa-trash text-danger"
+                  title="Delete"
+                  (click)="deleteCategory(category.id, i)"
+                ></i>
+              </span>
+              <span class="action-icon">
+                <i
+                  class="fa-regular fa-pen-to-square text-success editButton"
+                  title="Edit"
+                  [routerLink]="['editCategory/', category.id]"
+                ></i>
+              </span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+
 
             <ng-template pTemplate="body" let-category let-i="rowIndex">
                 <tr>

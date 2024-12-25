@@ -101,7 +101,7 @@ export const routes: Routes = [
       },
 
       {
-        path: 'categories/editCategory',
+        path: 'categories/editCategory/:id',
         loadComponent: () =>
           import('./modules/pages/editcat/editcat.component').then(
             (c) => c.EditcatComponent

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -23,12 +23,29 @@ export class CategoryService {
   getCategories(): Observable<any> {
     return this._http.get('https://ctrl-p.runasp.net/api/Category/Get-All');
   }
+  getCategoryById(id: number): Observable<any> {
+    return this.getCategories().pipe(
+      map((categories: any[]) => {
+        return categories.find((category) => category.id === id);
+      })
+    );
+  }
 
   // Add category
   addCategory(data: FormData): Observable<any> {
     return this._http.post('https://ctrl-p.runasp.net/api/Category/add', data, {
       headers: this.getAuthHeaders(),
     });
+  }
+
+  editCategory(data: FormData): Observable<any> {
+    return this._http.put(
+      'https://ctrl-p.runasp.net/api/Category/update',
+      data,
+      {
+        headers: this.getAuthHeaders(),
+      }
+    );
   }
   deleteCategory(Category: number): Observable<any> {
     const url = `https://ctrl-p.runasp.net/api/Category/DeleteCategory/${Category}`;

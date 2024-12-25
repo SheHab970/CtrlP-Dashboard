@@ -18,11 +18,11 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { ProductService } from '../../../core/services/product.service';
+import { Cat } from '../../../core/interface/cat';
 import { Frame } from '../../../core/interface/frame';
 import { Material } from '../../../core/interface/material';
 import { Size } from '../../../core/interface/size';
-import { Cat } from '../../../core/interface/cat';
+import { ProductService } from '../../../core/services/product.service';
 
 @Component({
   selector: 'app-add-product',
@@ -316,8 +316,6 @@ export class AddProductComponent implements OnInit {
 
     this.ProductService.addProduct(formData).subscribe({
       next: (data) => {
-        console.log('Product added successfully:', data);
-
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
