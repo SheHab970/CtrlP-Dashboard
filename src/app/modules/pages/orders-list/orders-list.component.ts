@@ -4,6 +4,10 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 
+import { CommonModule } from '@angular/common';
+
+
+
 import { RouterLink, RouterModule } from '@angular/router';
 import { OrderService } from '../../../core/services/order.service';
 
@@ -11,6 +15,10 @@ import { OrderService } from '../../../core/services/order.service';
   selector: 'app-orders-list',
   standalone: true,
   imports: [
+
+    CommonModule,
+
+
     ButtonModule,
     TableModule,
     TagModule,

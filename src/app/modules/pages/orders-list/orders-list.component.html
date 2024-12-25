@@ -19,8 +19,8 @@
                 <tr class="Order">
                     <td>#{{order.id}}</td>
                     <td>{{ order.userId }}</td>
-                    <td>{{order.orderDate}}</td>
-                    <td>${{order.totalPrice}}</td>
+                    <td>{{order.orderDate | date: 'yyyy-MM-dd'}}</td>
+                    <td>RSA {{order.totalPrice}}</td>
                     <!-- <td>{{ order.paymentMethod | currency : 'USD' }}</td> -->
                     <td>{{order.paymentMethod}}</td>
                     <td>

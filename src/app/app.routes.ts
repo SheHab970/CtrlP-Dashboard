@@ -51,6 +51,13 @@ export const routes: Routes = [
             (c) => c.AddServiceComponent
           ),
       },
+      {
+        path: 'services/edit-service/:id',
+        loadComponent: () =>
+          import('./modules/pages/update-service/update-service.component').then(
+            (c) => c.UpdateServiceComponent
+          ),
+      },
 
       {
         path: 'orders/order-detials/:id',
