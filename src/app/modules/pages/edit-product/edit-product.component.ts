@@ -58,10 +58,6 @@ export class EditProductComponent implements OnInit {
     this.ProductService.getProductBYid(this.id).subscribe({
       next: (data) => {
         this.product = data;
-        this.FramesNames.push(...data.framesNames);
-        this.MaterialsNames.push(...data.materialsNames);
-        this.SizesNames.push(...data.sizesNames);
-        this.CategoryNames.push(...data.categoryNames);
       },
       error: (err) => {
         this.messageService.add({
