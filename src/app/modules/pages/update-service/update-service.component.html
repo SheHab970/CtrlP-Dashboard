@@ -1,0 +1,24 @@
+<section class="edit-service d-flex align-items-center justify-content-center">
+    <p-toast></p-toast>
+    <div class="service-form">
+        <header>
+            <h2>Edit Service</h2>
+        </header>
+        <form [formGroup]="edit_service" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-5">
+            <div class="d-flex flex-column gap-2">
+                <label for="name">NAME</label>
+                <input type="text" id="name" [(ngModel)]="editService.name" formControlName="Name">
+            </div>
+            <div class="d-flex flex-column gap-2">
+                <label for="description">DESCRIPTION</label>
+                <input type="text" id="description" [(ngModel)]="editService.description" formControlName="Description">
+            </div>
+            <div class="imge d-flex flex-column gap-2">
+                <input type="file" name="file" id="file" class="inputfile" (change)="onfileselected($event)">
+            </div>
+            <div class="add-btn d-flex justify-content-end">
+                <button type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+</section>

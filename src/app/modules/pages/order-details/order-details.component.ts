@@ -9,6 +9,7 @@ import { TableModule } from 'primeng/table';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { OrderService } from '../../../core/services/order.service';
+import { UsersService } from '../../../core/services/users.service';
 
 @Component({
   selector: 'app-order-details',
@@ -27,19 +28,19 @@ import { OrderService } from '../../../core/services/order.service';
 })
 export class OrderDetailsComponent implements OnInit{
 
-  constructor( private order: OrderService, private active: ActivatedRoute){}
+  constructor( private order: OrderService, private active: ActivatedRoute, private _UserService: UsersService){}
 
   Status: any[] | undefined;
   selectedStatus: any;
   orderId!: number;
   orderDetails:any = {};
   messageService = inject(MessageService);
+  userInfo: any = {};
 
   ngOnInit(): void {
     this.orderId = this.active.snapshot.params['id'];
 
     this.getOrderData();
-
 
     this.Status = [
       { orderStatus: 'Created' },
@@ -51,15 +52,38 @@ export class OrderDetailsComponent implements OnInit{
 
   getOrderData(){
     this.order.getOrderDetails(this.orderId).subscribe({
-      next: (res)=>{
-        this.orderDetails = res;
-        console.log('details',res);
+      next: (order)=>{
+        this.orderDetails = order;
+        const userId = order.userId;
+        console.log(userId)
+        const productIds = order.orderItems.map((item: any) => item.productId);
+        console.log('details',productIds);
         
+        // Fetch user details
+        this.getUserDetails(userId);
+
+        // Fetch product details for each productId
+        // this.getProductDetails(productIds);
         
       },
       error: (err) => {
         console.log('error',err);
         
+      },
+    });
+  }
+
+  getUserDetails(userId: number): void {
+    this._UserService.GetUSerDetails(userId).subscribe({
+      next: (user) => {
+        this.userInfo = user;
+        console.log(
+          '🚀 ~ OrderDetailsComponent ~ this._UserService.getUserById ~ user:',
+          user
+        );
+      },
+      error: (error) => {
+        console.error('Error fetching user details:', error);
       },
     });
   }
