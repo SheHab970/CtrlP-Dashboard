@@ -1,3 +1,5 @@
+<p-toast />
+
 <div class="d-flex justify-content-center align-items-center p-4 m-4">
   <div class="w-75 mx-auto p-4 m-5 addProduct">
     <h2 class="h1 mb-3 text-white">Edit Category</h2>
@@ -12,6 +14,8 @@
               type="text"
               class="form-control"
               placeholder="Category new name"
+              [(ngModel)]="name"
+              [ngModelOptions]="{ standalone: true }"
             />
           </div>
         </div>
@@ -19,12 +23,19 @@
         <div class="col-md-12">
           <div>
             <label for="img" class="d-block">Category Image:</label>
-            <input id="img" class="formfile" type="file" />
+            <input
+              id="img"
+              class="formfile"
+              type="file"
+              (change)="onFileSelected($event)"
+            />
           </div>
         </div>
       </div>
 
-      <button class="btn btn-main mt-5 w-100 fw-bold">UPDATE:</button>
+      <button class="btn btn-main mt-5 w-100 fw-bold" (click)="sendData()">
+        UPDATE:
+      </button>
     </form>
   </div>
 </div>

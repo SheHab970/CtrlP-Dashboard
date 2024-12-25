@@ -32,7 +32,12 @@ export class EditProductComponent implements OnInit {
   materials: any[] = [];
   categories: any[] = [];
   sizes: any[] = [];
-  selectedImages: string[] = [];
+
+  FramesNames: string[] = [];
+  MaterialsNames: string[] = [];
+  SizesNames: string[] = [];
+  CategoryNames: string[] = [];
+  selectedFiles: File[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -48,13 +53,15 @@ export class EditProductComponent implements OnInit {
     this.fetchFrames();
     this.fetchMaterials();
     this.fetchSizes();
-
     this.id = this.route.snapshot.paramMap.get('id'); // Get the product ID from route params
+
     this.ProductService.getProductBYid(this.id).subscribe({
       next: (data) => {
         this.product = data;
-        this.selectedImages = [...this.product.url]; // Initialize images array
-        console.log(this.selectedImages);
+        this.FramesNames.push(...data.framesNames);
+        this.MaterialsNames.push(...data.materialsNames);
+        this.SizesNames.push(...data.sizesNames);
+        this.CategoryNames.push(...data.categoryNames);
       },
       error: (err) => {
         this.messageService.add({
@@ -133,12 +140,7 @@ export class EditProductComponent implements OnInit {
       },
     });
   }
-  FramesNames: [] = [];
-  MaterialsNames: [] = [];
-  SizesNames: [] = [];
-  CategoryNames: [] = [];
 
-  selectedFiles: File[] = [];
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
@@ -180,17 +182,24 @@ export class EditProductComponent implements OnInit {
 
     this.ProductService.UpdateProduct(formData).subscribe({
       next: (data) => {
-        console.log(data);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: ' Product updated successfully!',
+        });
+
+        setTimeout(() => {
+          this.router.navigate(['/dashboard/Product']);
+        }, 1000);
+      },
+
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to update product. Please try again.',
+        });
       },
     });
-  }
-
-  // Handle image removal
-  removeImage(imageUrl: string) {
-    const index = this.selectedImages.indexOf(imageUrl);
-    if (index > -1) {
-      this.selectedImages.splice(index, 1);
-      console.log(this.selectedImages);
-    }
   }
 }

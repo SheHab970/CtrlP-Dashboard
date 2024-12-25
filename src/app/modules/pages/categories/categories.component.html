@@ -51,7 +51,7 @@
                 <i
                   class="fa-regular fa-pen-to-square text-success editButton"
                   title="Edit"
-                  routerLink="editCategory"
+                  [routerLink]="['editCategory/', category.id]"
                 ></i>
               </span>
             </div>
