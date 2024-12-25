@@ -117,4 +117,13 @@ export class ProductService {
       headers: this.getAuthHeaders(),
     });
   }
+
+  getMessages(): Observable<any[]> {
+    return this._http.get<any[]>(
+      'https://ctrl-p.runasp.net/api/Messages/GetMessagesPage',
+      {
+        headers: this.getAuthHeaders(),
+      }
+    );
+  }
 }

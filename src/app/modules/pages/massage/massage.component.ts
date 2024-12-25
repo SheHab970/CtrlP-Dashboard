@@ -13,7 +13,7 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { Categories } from '../../../core/interface/categories';
 import { ProductService } from '../../../core/services/product.service';
-import { SearchComponent } from '../../../share/componrnts/search/search.component';
+import { log } from 'console';
 
 @Component({
   selector: 'app-massage',
@@ -29,7 +29,6 @@ import { SearchComponent } from '../../../share/componrnts/search/search.compone
     DropdownModule,
     InputTextModule,
     RouterModule,
-    SearchComponent,
     MultiSelectModule,
   ],
   providers: [MessageService], // Combine providers into one array
@@ -39,13 +38,12 @@ import { SearchComponent } from '../../../share/componrnts/search/search.compone
 export class MassageComponent implements OnInit {
   Categories: Categories[] = [];
   constructor(private router: Router) {}
-  statuses!: SelectItem[];
   ProductService = inject(ProductService);
-
+  messages: any;
   ngOnInit(): void {
-    this.ProductService.getCatlist().subscribe({
-      next: (value: any) => {
-        this.Categories = value;
+    this.ProductService.getMessages().subscribe({
+      next: (res) => {
+        this.messages = res;
       },
     });
   }
