@@ -120,7 +120,7 @@ export const routes: Routes = [
       // & massage
 
       {
-        path: 'massage',
+        path: 'message',
         loadComponent: () =>
           import('./modules/pages/massage/massage.component').then(
             (c) => c.MassageComponent

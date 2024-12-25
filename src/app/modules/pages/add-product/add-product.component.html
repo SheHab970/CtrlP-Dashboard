@@ -1,313 +1,180 @@
 <div class="container p-4 m-5">
-  <h2 class="mb-3 text-white">Add new Product:</h2>
-  <form id="form">
-    <div class="row gy-4">
-      <div class="col-md-6">
-        <div>
-          <label for="name">Name:</label>
-          <input
-            id="name"
-            type="text"
-            class="form-control"
-            placeholder=" Product name"
-            [(ngModel)]="Name"
-            name="name"
-          />
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div>
-          <label for="price">Price:</label>
-          <input
-            id="price"
-            type="number"
-            class="form-control"
-            placeholder=" Product price"
-            [(ngModel)]="Price"
-            name="Price"
-          />
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div>
-          <label for="price_before">Price Before Discount:</label>
-          <input
-            id="price_before"
-            type="number"
-            class="form-control"
-            placeholder=" Enter Price Before Discount"
-            [(ngModel)]="OldPrice"
-            name="OldPrice"
-          />
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div>
-          <label for="price_before">UnitsInStock:</label>
-          <input
-            id="price_before"
-            type="number"
-            class="form-control"
-            placeholder="Units in stock"
-            [(ngModel)]="UnitsInStock"
-            name="UnitsInStock"
-          />
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div>
-          <label for="Category" class="d-block">Category:</label>
-
-          <div class="d-flex align-items-center gap-3">
-            <p-multi-select
-              [options]="categories"
-              [(ngModel)]="CategoryNames"
-              optionLabel="name"
-              placeholder="Select categories"
-              class="w-100"
-              name="Categories"
-            ></p-multi-select>
-
-            <!-- Button to open the material modal -->
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div>
-          <p-toast></p-toast>
-          <label class="d-block">Material:</label>
-
-          <!-- Dropdown to select a material -->
-          <div class="d-flex align-items-center gap-3">
-            <p-multi-select
-              [options]="materials"
-              [(ngModel)]="selectedMaterial"
-              optionLabel="name"
-              name="m"
-              placeholder="Select Material"
-              class="w-100"
-            ></p-multi-select>
-
-            <!-- Button to open the material modal -->
-            <button
-              pButton
-              type="button"
-              (click)="showMaterialDialog()"
-              icon="fa-solid fa-plus"
-            ></button>
-          </div>
-
-          <!-- Dialog for adding a new material -->
-          <p-dialog
-            header="Add New Material:"
-            [(visible)]="displayMaterialDialog"
-            [modal]="true"
-            [closable]="false"
-          >
-            <div class="p-fluid">
-              <div class="p-field">
-                <input
-                  pInputText
-                  id="materialName"
-                  [(ngModel)]="newMaterialName"
-                  [ngModelOptions]="{ standalone: true }"
-                  placeholder="Enter Material Name"
-                  class="my-4"
-                />
-              </div>
-
-              <p-footer>
-                <button
-                  class="d-block mx-auto"
-                  pButton
-                  type="button"
-                  label="Add"
-                  (click)="addNewMaterial()"
-                  icon="pi pi-check"
-                ></button>
-              </p-footer>
+    <h2 class="mb-3 text-white">Add new Product:</h2>
+    <form id="form">
+        <div class="row gy-4">
+            <div class="col-md-6">
+                <div>
+                    <label for="name">Name:</label>
+                    <input id="name" type="text" class="form-control" placeholder=" Product name" [(ngModel)]="Name"
+                        name="name" />
+                </div>
             </div>
 
-            <button
-              *ngIf="displayMaterialDialog"
-              (click)="closeDialog()"
-              style="position: absolute; top: 10px; right: 10px"
-              class="p-button-rounded p-button-danger"
-            >
-              <i class="pi pi-times"><i class="fa-solid fa-x"></i></i>
-            </button>
-          </p-dialog>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div>
-          <p-toast></p-toast>
-          <label class="d-block">Frames:</label>
-          <div class="d-flex align-items-center gap-3">
-            <p-multi-select
-              [options]="frames"
-              [(ngModel)]="selectedFrame"
-              placeholder="Select Frame"
-              class="w-100"
-              optionLabel="name"
-              name="f"
-            ></p-multi-select>
-
-            <button
-              pButton
-              type="button"
-              (click)="showFrameDialog()"
-              icon="fa-solid fa-plus"
-            ></button>
-          </div>
-
-          <!-- Dialog for adding a new frame -->
-          <p-dialog
-            header="Add New Frame:"
-            [(visible)]="displayFrameDialog"
-            [modal]="true"
-            [closable]="false"
-          >
-            <div class="p-fluid">
-              <div class="p-field">
-                <input
-                  #frameInput
-                  pInputText
-                  id="frameName"
-                  [(ngModel)]="newFrameName"
-                  [ngModelOptions]="{ standalone: true }"
-                  placeholder="Enter Frame Name"
-                  class="my-4"
-                />
-              </div>
-
-              <p-footer>
-                <button
-                  class="d-block mx-auto"
-                  pButton
-                  type="button"
-                  label="Add"
-                  (click)="addNewFrame()"
-                  icon="pi pi-check"
-                ></button>
-              </p-footer>
+            <div class="col-md-6">
+                <div>
+                    <label for="price">Price:</label>
+                    <input id="price" type="number" class="form-control" placeholder=" Product price"
+                        [(ngModel)]="Price" name="Price" />
+                </div>
             </div>
 
-            <button
-              *ngIf="displayFrameDialog"
-              (click)="closeDialog()"
-              style="position: absolute; top: 10px; right: 10px"
-              class="p-button-rounded p-button-danger"
-            >
-              <i class="pi pi-times"> <i class="fa-solid fa-x"></i></i>
-            </button>
-          </p-dialog>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div>
-          <p-toast></p-toast>
-          <label class="d-block">Sizes:</label>
-          <!-- Dropdown to select a size -->
-          <div class="d-flex align-items-center gap-3">
-            <p-multi-select
-              [options]="sizes"
-              [(ngModel)]="selectedSize"
-              optionLabel="name"
-              name="s"
-              placeholder="Select Size"
-              class="w-100"
-            ></p-multi-select>
-
-            <!-- Button to open the size modal -->
-            <button
-              pButton
-              type="button"
-              (click)="showSizeDialog()"
-              icon="fa-solid fa-plus"
-            ></button>
-          </div>
-
-          <!-- Dialog for adding a new size -->
-          <p-dialog
-            header="Add New Size:"
-            [(visible)]="displaySizeDialog"
-            [modal]="true"
-            [closable]="false"
-          >
-            <div class="p-fluid">
-              <div class="p-field">
-                <input
-                  pInputText
-                  id="sizeName"
-                  [(ngModel)]="newSizeName"
-                  [ngModelOptions]="{ standalone: true }"
-                  placeholder="Enter Size Name"
-                  class="my-4"
-                />
-              </div>
-
-              <p-footer>
-                <button
-                  class="d-block mx-auto"
-                  pButton
-                  type="button"
-                  label="Add"
-                  (click)="addNewSize()"
-                  icon="pi pi-check"
-                ></button>
-              </p-footer>
+            <div class="col-md-6">
+                <div>
+                    <label for="price_before">Price Before Discount:</label>
+                    <input id="price_before" type="number" class="form-control"
+                        placeholder=" Enter Price Before Discount" [(ngModel)]="OldPrice" name="OldPrice" />
+                </div>
             </div>
 
-            <button
-              *ngIf="displaySizeDialog"
-              (click)="closeDialog()"
-              style="position: absolute; top: 10px; right: 10px"
-              class="p-button-rounded p-button-danger"
-            >
-              <i class="pi pi-times"><i class="fa-solid fa-x"></i></i>
-            </button>
-          </p-dialog>
-        </div>
-      </div>
+            <div class="col-md-6">
+                <div>
+                    <label for="price_before">UnitsInStock:</label>
+                    <input id="price_before" type="number" class="form-control" placeholder="Units in stock"
+                        [(ngModel)]="UnitsInStock" name="UnitsInStock" />
+                </div>
+            </div>
 
-      <div class="col-12">
-        <div>
-          <label for="Description">Description:</label>
-          <textarea
-            id="Description"
-            type="text"
-            rows="3"
-            class="form-control"
-            placeholder=" Product description"
-            [(ngModel)]="Description"
-            name="Description"
-          ></textarea>
-        </div>
-      </div>
+            <div class="col-md-6">
+                <div>
+                    <label for="Category" class="d-block">Category:</label>
 
-      <div class="col-12">
-        <div class="h-100 d-flex flex-column justify-content-between">
-          <label class="d-block">Images:</label>
-          <input
-            type="file"
-            multiple
-            class="inputfile"
-            (change)="onFileSelected($event)"
-          />
-        </div>
-      </div>
-    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <p-multi-select [options]="categories" [(ngModel)]="CategoryNames" optionLabel="name"
+                            placeholder="Select categories" class="w-100" name="Categories"></p-multi-select>
 
-    <button class="btn btn-main w-100 fw-bold mt-5" (click)="sendData()">
-      Add product
-    </button>
-  </form>
+                        <!-- Button to open the material modal -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div>
+                    <p-toast></p-toast>
+                    <label class="d-block">Material:</label>
+
+                    <!-- Dropdown to select a material -->
+                    <div class="d-flex align-items-center gap-3">
+                        <p-multi-select [options]="materials" [(ngModel)]="selectedMaterial" optionLabel="name" name="m"
+                            placeholder="Select Material" class="w-100"></p-multi-select>
+
+                        <!-- Button to open the material modal -->
+                        <button pButton type="button" (click)="showMaterialDialog()"
+                            icon="fa-solid fa-plus icom"></button>
+                    </div>
+
+                    <!-- Dialog for adding a new material -->
+                    <p-dialog header="Add New Material:" [(visible)]="displayMaterialDialog" [modal]="true"
+                        [closable]="false">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <input pInputText id="materialName" [(ngModel)]="newMaterialName"
+                                    [ngModelOptions]="{ standalone: true }" placeholder="Enter Material Name"
+                                    class="my-4" />
+                            </div>
+
+                            <p-footer>
+                                <button class="d-block mx-auto" pButton type="button" label="Add"
+                                    (click)="addNewMaterial()" icon="pi pi-check"></button>
+                            </p-footer>
+                        </div>
+
+                        <button *ngIf="displayMaterialDialog" (click)="closeDialog()"
+                            style="position: absolute; top: 10px; right: 10px" class="p-button-rounded p-button-danger">
+                            <i class="pi pi-times"><i class="fa-solid fa-x"></i></i>
+                        </button>
+                    </p-dialog>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div>
+                    <p-toast></p-toast>
+                    <label class="d-block">Frames:</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <p-multi-select [options]="frames" [(ngModel)]="selectedFrame" placeholder="Select Frame"
+                            class="w-100" optionLabel="name" name="f"></p-multi-select>
+
+                        <button pButton type="button" (click)="showFrameDialog()" icon="fa-solid fa-plus icom"></button>
+                    </div>
+
+                    <!-- Dialog for adding a new frame -->
+                    <p-dialog header="Add New Frame:" [(visible)]="displayFrameDialog" [modal]="true"
+                        [closable]="false">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <input #frameInput pInputText id="frameName" [(ngModel)]="newFrameName"
+                                    [ngModelOptions]="{ standalone: true }" placeholder="Enter Frame Name"
+                                    class="my-4" />
+                            </div>
+
+                            <p-footer>
+                                <button class="d-block mx-auto" pButton type="button" label="Add"
+                                    (click)="addNewFrame()" icon="pi pi-check"></button>
+                            </p-footer>
+                        </div>
+
+                        <button *ngIf="displayFrameDialog" (click)="closeDialog()"
+                            style="position: absolute; top: 10px; right: 10px" class="p-button-rounded p-button-danger">
+                            <i class="pi pi-times"> <i class="fa-solid fa-x"></i></i>
+                        </button>
+                    </p-dialog>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div>
+                    <p-toast></p-toast>
+                    <label class="d-block">Sizes:</label>
+                    <!-- Dropdown to select a size -->
+                    <div class="d-flex align-items-center gap-3">
+                        <p-multi-select [options]="sizes" [(ngModel)]="selectedSize" optionLabel="name" name="s"
+                            placeholder="Select Size" class="w-100"></p-multi-select>
+
+                        <!-- Button to open the size modal -->
+                        <button pButton type="button" (click)="showSizeDialog()" icon="fa-solid fa-plus icom"></button>
+                    </div>
+
+                    <!-- Dialog for adding a new size -->
+                    <p-dialog header="Add New Size:" [(visible)]="displaySizeDialog" [modal]="true" [closable]="false">
+                        <div class="p-fluid">
+                            <div class="p-field">
+                                <input pInputText id="sizeName" [(ngModel)]="newSizeName"
+                                    [ngModelOptions]="{ standalone: true }" placeholder="Enter Size Name"
+                                    class="my-4" />
+                            </div>
+
+                            <p-footer>
+                                <button class="d-block mx-auto" pButton type="button" label="Add" (click)="addNewSize()"
+                                    icon="pi pi-check"></button>
+                            </p-footer>
+                        </div>
+
+                        <button *ngIf="displaySizeDialog" (click)="closeDialog()"
+                            style="position: absolute; top: 10px; right: 10px" class="p-button-rounded p-button-danger">
+                            <i class="pi pi-times"><i class="fa-solid fa-x"></i></i>
+                        </button>
+                    </p-dialog>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div>
+                    <label for="Description">Description:</label>
+                    <textarea id="Description" type="text" rows="3" class="form-control"
+                        placeholder=" Product description" [(ngModel)]="Description" name="Description"></textarea>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="h-100 d-flex flex-column justify-content-between">
+                    <label class="d-block">Images:</label>
+                    <input type="file" multiple class="inputfile" (change)="onFileSelected($event)" />
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-main w-100 fw-bold mt-5" (click)="sendData()">
+            Add product
+        </button>
+    </form>
 </div>

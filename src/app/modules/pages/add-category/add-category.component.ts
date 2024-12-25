@@ -64,43 +64,6 @@ export class AddCategoryComponent implements OnInit {
     console.log('hijjjjjjj');
   }
 
-  // sendData(): void {
-  //   const formData = new FormData();
-  //   formData.append('Name', this.Name);
-
-  //   this.selectedFiles.forEach((file) => {
-  //     formData.append('Image', file);
-  //   });
-
-  //   formData.forEach((value, key) => {
-  //     console.log(key, value);
-  //   });
-
-  //   this.CategoryService.addCategory(formData).subscribe({
-  //     next: (data) => {
-  //       console.log('Product added successfully:', data);
-
-  //       this.messageService.add({
-  //         severity: 'success',
-  //         summary: 'Success',
-  //         detail: 'New Product added successfully!',
-  //       });
-
-  //     },
-  //     error: (error) => {
-  //       console.error('Error adding product:', error);
-  //       this.messageService.add({
-  //         severity: 'error',
-  //         summary: 'Error',
-  //         detail: 'Failed to add Product. Please try again.',
-  //       });
-  //     },
-  //     complete: () => {
-  //       console.log('Request complete.');
-  //     },
-  //   });
-  // }
-
   uploadedImages: string[] = []; // Store the uploaded image URLs
 
   sendData(): void {
@@ -113,12 +76,14 @@ export class AddCategoryComponent implements OnInit {
 
     this.CategoryService.addCategory(formData).subscribe({
       next: (data: any) => {
+
         this.uploadedImages = data.uploadedImageUrls; // Assuming the API returns image URLs
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: ' New category added successfully!',
         });
+
         setTimeout(() => {
           this.router.navigate(['/dashboard/categories']);
         }, 1000);

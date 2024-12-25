@@ -39,12 +39,6 @@ export class ProductService {
     return this._http.get(this.baseUrl + 'Product/GetAllProducts/');
   }
 
-  getCatlist(): Observable<any> {
-    return this._http.get('https://ctrl-p.runasp.net/api/Category/Get-All');
-  }
-
-  // Get categories
-
   // Add product
   addProduct(data: FormData): Observable<any> {
     return this._http.post('https://ctrl-p.runasp.net/api/Product', data, {
@@ -59,6 +53,13 @@ export class ProductService {
         headers: this.getHeaders(),
       }
     );
+  }
+
+  deleteProduct(productId: number): Observable<any> {
+    const url = `https://ctrl-p.runasp.net/api/Product/DeleteProduct/${productId}`;
+    return this._http.delete(url, {
+      headers: this.getAuthHeaders(),
+    });
   }
   //  frames
   getFrames(): Observable<any[]> {
@@ -111,11 +112,8 @@ export class ProductService {
     });
   }
 
-  deleteProduct(productId: number): Observable<any> {
-    const url = `https://ctrl-p.runasp.net/api/Product/DeleteProduct/${productId}`;
-    return this._http.delete(url, {
-      headers: this.getAuthHeaders(),
-    });
+  getCatlist(): Observable<any> {
+    return this._http.get('https://ctrl-p.runasp.net/api/Category/Get-All');
   }
 
   getMessages(): Observable<any[]> {

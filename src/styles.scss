@@ -19,21 +19,10 @@
 body {
   height: 100vh;
   background-color: var(--backgroundColor) !important;
-  // background-color: #b3b3b3 !important;
-  // color: white;
 }
-// .p-paginator {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-wrap: wrap;
-//   border: none;
-// }
-
 .p-datatable .p-datatable-footer {
   border: 1px solid var(--secondarybackgroundColor);
   border-width: 0 0 1px 0;
-  // padding: 1rem 0.5px;
   font-weight: 700;
 }
 
@@ -165,4 +154,14 @@ th {
   border-style: solid;
   border-width: 0 0 1px 0;
   padding: 30px !important;
+}
+img {
+  width: 120px;
+}
+.p-button {
+  background-color: var(--MainColor) !important;
+}
+.buttonCommen {
+  position: relative;
+  right: 50px;
 }

@@ -10,7 +10,6 @@ import { RatingModule } from 'primeng/rating';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
-import { SearchComponent } from '../../../share/componrnts/search/search.component';
 import { ProductService } from './../../../core/services/product.service';
 @Component({
   selector: 'app-products',
@@ -27,9 +26,8 @@ import { ProductService } from './../../../core/services/product.service';
     DropdownModule,
     InputTextModule,
     RouterModule,
-    SearchComponent,
   ],
-  providers: [MessageService], // Combine providers into one array
+  providers: [MessageService],
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss'],
 })
@@ -48,10 +46,8 @@ export class ProductsListComponent implements OnInit {
     this.ProductService.getProductlist().subscribe((data: any) => {
       this.list = data.map((product: any) => ({
         ...product,
-        inventoryStatus: this.getDefaultStatus(product), // Assign a status
+        inventoryStatus: this.getDefaultStatus(product),
       }));
-
-      console.log(data);
 
       this.statuses = [
         { label: 'In Stock', value: 'INSTOCK' },
@@ -62,10 +58,9 @@ export class ProductsListComponent implements OnInit {
   }
 
   getDefaultStatus(product: any): string {
-    // Example logic for assigning status based on price (customize as needed)
     if (product.unitsInStock > 10) {
       return 'INSTOCK';
-    } else if (product.unitsInStock <= 10) {
+    } else if (product.unitsInStock > 0) {
       return 'LOWSTOCK';
     } else {
       return 'OUTOFSTOCK';
@@ -74,13 +69,13 @@ export class ProductsListComponent implements OnInit {
   getSeverity(status: string) {
     switch (status) {
       case 'INSTOCK':
-        return 'success'; // Green
+        return 'success';
       case 'LOWSTOCK':
-        return 'warn'; // Yellow (corrected from 'warning')
+        return 'warn';
       case 'OUTOFSTOCK':
-        return 'danger'; // Red
+        return 'danger';
       default:
-        return 'secondary'; // Default fallback
+        return 'secondary';
     }
   }
 

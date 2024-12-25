@@ -7,34 +7,16 @@
         <div class="col-12">
           <div>
             <label for="name" class="d-block">Name:</label>
-            <input
-              id="name"
-              type="text"
-              class="form-control"
-              placeholder=" Category Name"
-              [(ngModel)]="Name"
-              name="name"
-            />
+            <input id="name" type="text" class="form-control" placeholder=" Category Name" [(ngModel)]="Name"
+              name="name" />
           </div>
         </div>
 
         <div class="col-12">
           <div>
-            <!-- <label for="img">Product Image:</label>
-                          <input id="img" class="form-control" type="file" placeholder=" Choose Product Image:"
-                              [(ngModel)]="Image" name="Image"> -->
-            <!-- 
-               
-                        <!-- <div *ngFor="let image of uploadedImages">
-                            <img [src]="image" alt="Uploaded Product Image" class="img-thumbnail" />
-                        </div> -->
+
             <label class="d-block">Images:</label>
-            <input
-              type="file"
-              multiple
-              (change)="onFileSelected($event)"
-              class="inputfile"
-            />
+            <input type="file" multiple (change)="onFileSelected($event)" class="inputfile" />
           </div>
         </div>
       </div>
