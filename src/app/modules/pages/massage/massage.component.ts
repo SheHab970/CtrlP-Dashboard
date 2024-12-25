@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { MessageService, SelectItem } from 'primeng/api';
+import { RouterModule } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -31,13 +31,13 @@ import { log } from 'console';
     RouterModule,
     MultiSelectModule,
   ],
-  providers: [MessageService], // Combine providers into one array
+  providers: [MessageService],
   templateUrl: './massage.component.html',
   styleUrl: './massage.component.scss',
 })
 export class MassageComponent implements OnInit {
   Categories: Categories[] = [];
-  constructor(private router: Router) {}
+
   ProductService = inject(ProductService);
   messages: any;
   ngOnInit(): void {

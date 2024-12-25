@@ -1,7 +1,6 @@
 import { Users } from '../../../core/interface/users';
 import { UsersService } from './../../../core/services/users.service';
 import { Component, OnInit, inject } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
@@ -9,11 +8,9 @@ import { ButtonModule } from 'primeng/button';
 import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { ToastModule } from 'primeng/toast';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { SearchComponent } from '../../../share/componrnts/search/search.component';
 import { RegisterComponent } from '../../authentication/pages/register/register.component';
 
 @Component({
@@ -29,14 +26,13 @@ import { RegisterComponent } from '../../authentication/pages/register/register.
     ToastModule,
     DropdownModule,
     InputTextModule,
-    SearchComponent,
     RegisterComponent,
   ],
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'], // Fixed the typo here
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
-  users: Users[] = []; // Holds the user data fetched from the service
+  users: Users[] = [];
 
   constructor(private usersService: UsersService) {}
 
@@ -45,12 +41,12 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.usersService.GetUSer().subscribe({
       next: (data: Users[]) => {
-        this.users = data; // Assign fetched data to the users array
+        this.users = data;
       },
       error: (err) => {
-        console.error('Error fetching users:', err); // Handle any errors
+        console.error('Error fetching users:', err);
       },
-    });    
+    });
   }
 
   openRegisterForm(): void {
@@ -61,20 +57,10 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  // lockUser(id: number): void {
-  //   this.usersService.toggleUser(id).subscribe({
-  //     next: (data) => {
-  //       console.log(data);
-  //       console.log('done');
-  //     },
-  //   });
-  //   console.log(id);
-  // }
-
   lockUser(id: number, user: Users): void {
     this.usersService.toggleUser(id).subscribe({
       next: () => {
-        user.isLockedOut = !user.isLockedOut; // Toggle the isLockedOut property locally
+        user.isLockedOut = !user.isLockedOut;
         console.log(`User ${id} lock state updated to: ${user.isLockedOut}`);
       },
       error: (err) => {

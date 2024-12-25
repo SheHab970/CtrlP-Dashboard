@@ -1,30 +1,22 @@
 <section class="listSection">
-  <div class="InnerSection d-flex justify-content-center">
-    <div class="search_component">
-      <app-search />
-      <button class="btn-main" (click)="addCategory()">
-        Add Category <i class="fa-solid fa-plus ms-1"></i>
-      </button>
-    </div>
-  </div>
+    <div class="InnerSection d-flex justify-content-end">
+        <div>
 
-  <div class="ListTable" *ngIf="Categories.length > 0; else noTable">
-    <p-table
-      [value]="Categories"
-      styleClass="p-datatable-gridlines"
-      [tableStyle]="{ 'min-width': '60rem' }"
-      [paginator]="true"
-      [rows]="5"
-      [rowsPerPageOptions]="[5, 10, 20]"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th>Id</th>
-          <th>Category Name</th>
-          <th>Image</th>
-          <th>Actions</th>
-        </tr>
-      </ng-template>
+            <button class="btn-main buttonCommen" (click)="addCategory()">
+                Add Category <i class="fa-solid fa-plus ms-1"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="ListTable" *ngIf="Categories.length > 0; else noTable">
+        <p-table [value]="Categories" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '60rem' }"
+            [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20]">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Id</th>
+                    <th>Image</th>
+                    <th>Category Name</th>
+
 
       <ng-template pTemplate="body" let-category let-i="rowIndex">
         <tr>
@@ -59,17 +51,38 @@
         </tr>
       </ng-template>
 
-      <ng-template pTemplate="summary">
-        <div class="flex align-items-center justify-content-around">
-          In total, there are {{ Categories.length }} categories.
-        </div>
-      </ng-template>
-    </p-table>
-  </div>
 
-  <ng-template #noTable>
-    <h2 class="h4 text-center mt-5">
-      There's no categories yet, Start to add new categories for your products !
-    </h2>
-  </ng-template>
+            <ng-template pTemplate="body" let-category let-i="rowIndex">
+                <tr>
+                    <td class="text-center">{{ category.id }}</td>
+                    <td>
+                        <img [src]="'https://ctrl-p.runasp.net/' + category.imageUrl" [alt]="category.name"
+                            class="shadow-4 rounded rounded-1" />
+                    </td>
+                    <td>{{ category.name }}</td>
+
+                    <td>
+                        <div class="d-flex align-items-center justify-content-center gap-3">
+                            <span class="action-icon">
+                                <i class="fa-solid fa-trash text-danger" title="Delete"
+                                    (click)="deleteCategory(category.id, i)"></i>
+                            </span>
+                            <span class="action-icon">
+                                <i class="fa-regular fa-pen-to-square text-success editButton" title="Edit"
+                                    routerLink="editCategory"></i>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+
+
+        </p-table>
+    </div>
+
+    <ng-template #noTable>
+        <h2 class="h4 text-center mt-5">
+            There's no categories yet, Start to add new categories for your products !
+        </h2>
+    </ng-template>
 </section>

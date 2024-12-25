@@ -54,7 +54,7 @@ export class AddProductComponent implements OnInit {
   Description: string = '';
   Price: number = 0;
   OldPrice: number = 0;
-  UnitsInStock: number = 5;
+  UnitsInStock: number = 1;
   selectedFrame: Frame[] = [];
   CategoryNames: Cat[] = [];
   selectedMaterial: Material[] = [];
@@ -69,14 +69,13 @@ export class AddProductComponent implements OnInit {
   frames: any[] = [];
   materials: any[] = [];
   categories: any[] = [];
-  sizes: any[] = []; // Added sizes array // Added selected size
+  sizes: any[] = [];
   displayFrameDialog: boolean = false;
   displayMaterialDialog: boolean = false;
-  displaySizeDialog: boolean = false; // For size dialog visibility
+  displaySizeDialog: boolean = false;
   newFrameName: string = '';
   newMaterialName: string = '';
-  newSizeName: string = ''; // For size name input
-
+  newSizeName: string = '';
   @ViewChild('frameInput') frameInput!: ElementRef;
   note: any;
   showMoreControls: any;
@@ -84,7 +83,7 @@ export class AddProductComponent implements OnInit {
   ngOnInit() {
     this.fetchFrames();
     this.fetchMaterials();
-    this.fetchSizes(); // Fetch sizes when the component initializes
+    this.fetchSizes();
     this.fetchCategories();
   }
 
