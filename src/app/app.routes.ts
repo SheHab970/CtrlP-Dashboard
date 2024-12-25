@@ -22,7 +22,7 @@ export const routes: Routes = [
       import('./modules/pages/dashboard/dashboard.component').then(
         (c) => c.DashboardComponent
       ),
-      canActivate:[authGuard],
+    canActivate: [authGuard],
     children: [
       ///orders
       {
@@ -101,7 +101,7 @@ export const routes: Routes = [
       },
 
       {
-        path: 'categories/editCategory',
+        path: 'categories/editCategory/:id',
         loadComponent: () =>
           import('./modules/pages/editcat/editcat.component').then(
             (c) => c.EditcatComponent
