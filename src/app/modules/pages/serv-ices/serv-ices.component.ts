@@ -1,13 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterModule } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { ServicesService } from '../../../core/services/services.service';
-import { Services } from '../../../core/interface/services';
-import { log } from 'console';
-import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Services } from '../../../core/interface/services';
+import { ServicesService } from '../../../core/services/services.service';
 
 @Component({
   selector: 'app-serv-ices',
@@ -22,30 +21,28 @@ import { RouterLink, RouterModule } from '@angular/router';
   ],
   providers: [MessageService],
   templateUrl: './serv-ices.component.html',
-  styleUrl: './serv-ices.component.scss'
+  styleUrl: './serv-ices.component.scss',
 })
 export class ServIcesComponent implements OnInit {
-
   services_list: Services[] = [];
-    messageService = inject(MessageService);
+  messageService = inject(MessageService);
 
-  constructor(private services: ServicesService){}
+  constructor(private services: ServicesService) {}
 
   ngOnInit(): void {
-    // call API data 
-    this.getservices();    
+    // call API data
+    this.getservices();
   }
 
-  getservices(){
-    this.services.getServices().subscribe((data: any) =>{
+  getservices() {
+    this.services.getServices().subscribe((data: any) => {
       this.services_list = data;
     });
   }
 
-  deleteService(id :number){
-
+  deleteService(id: number) {
     this.services.deldteService(id).subscribe({
-      next: () => {
+      next: (res) => {
         this.getservices();
         this.messageService.add({
           severity: 'success',
@@ -61,8 +58,6 @@ export class ServIcesComponent implements OnInit {
           detail: 'Failed to delete service, please try again',
         });
       },
-    })
-    
+    });
   }
-  
 }
