@@ -1,0 +1,115 @@
+.edit-service{
+    background-color: var(--backgroundColor);
+    padding: 2rem;
+    height: 100vh;
+    .service-form{
+      background-color: var(--secondarybackgroundColor);
+      box-shadow: 0px 2px 21px -3px black;
+      padding: 50px 25px 60px 60px;
+      border-radius: 15px;
+      width: 70%;
+      header{
+        h2{
+          color: var(--MainColor);
+          margin-bottom: 55px;
+        }
+      }
+        label{
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: var(--ParagraphColor);
+        }
+        input{
+            background-color: var(--InputsbackgroundColor) ;
+            border: none;
+            outline: none;
+            padding: 15px 15px;
+            font-size: 20px;
+            border-radius: 10px;
+            box-shadow: 2px 0px 8px -3px var(--backgroundColor);
+        }
+        input:focus{
+          box-shadow: 0px 0px 5px 2px black;
+        }
+        .imge{
+          pointer-events: none;
+            input[type="file"] {
+              box-shadow: none;
+                position: relative;
+                background-color: var(--secondarybackgroundColor);
+                color: var(--ParagraphColor);
+              }
+              
+              input[type="file"]::file-selector-button {
+                width: 165px;
+                color: transparent;
+              }
+              
+              /* Faked label styles and icon */
+              input[type="file"]::before {
+                position: absolute;
+                pointer-events: none;
+                top: 23px;
+                left: 16px;
+                height: 22px;
+                width: 24px;
+                content: "";
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230964B0'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+              }
+              
+              input[type="file"]::after {
+                position: absolute;
+                pointer-events: none;
+                top: 22px;
+                left: 43px;
+                font-size: 18px;
+                color: var(--ParagraphColor);
+                content: "Upload Image";
+              }
+              
+              /* ------- From Step 1 ------- */
+              
+              /* file upload button */
+              input[type="file"]::file-selector-button {
+                pointer-events: visible;
+                background-color: var(--InputsbackgroundColor);
+                border-radius: 10px;
+                padding: 0 16px;
+                height: 45px;
+                cursor: pointer;
+                border: 1px solid rgba(0, 0, 0, 0.16);
+                box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+                margin-right: 16px;
+                transition: background-color 200ms;
+              }
+              
+              /* file upload button hover state */
+              input[type="file"]::file-selector-button:hover {
+                background-color: var(--secondarybackgroundColor);
+              }
+              
+              /* file upload button active state */
+              input[type="file"]::file-selector-button:active {
+                background-color: var(--backgroundColor);
+              }
+              
+        }
+        .add-btn{
+            button{
+                border: none;
+                padding: 8px 22px;
+                font-size: 22px;
+                font-weight: 500;
+                border-radius: 12px;
+                background-color: var(--InputsbackgroundColor);
+                color: #ffff;
+                transition: 0.4s;
+            }
+            button:hover{
+                background-color: var(--backgroundColor);
+                color: var(--MainColor);
+            }
+        }
+    }
+}

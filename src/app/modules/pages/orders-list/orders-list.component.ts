@@ -3,6 +3,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { SearchComponent } from '../../../share/componrnts/search/search.component';
 import { RouterLink, RouterModule } from '@angular/router';
 import { OrderService } from '../../../core/services/order.service';
@@ -12,6 +13,7 @@ import { log } from 'node:console';
   selector: 'app-orders-list',
   standalone: true,
   imports: [
+    CommonModule,
     SearchComponent,
     ButtonModule,
     TableModule,

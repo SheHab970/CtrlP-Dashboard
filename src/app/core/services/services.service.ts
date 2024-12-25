@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient , HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -17,5 +17,15 @@ export class ServicesService {
 
   addServices(service: FormData): Observable<any> {
     return this.http.post(this.services_api + 'add', service);
+  }
+
+  deldteService(id: number): Observable<any>{
+    // const service = data
+    const params = new HttpParams().set('id', id);
+    return this.http.delete(this.services_api + 'Delete' , {params: params});
+  }
+
+   updateService(service: FormData): Observable<any> {
+    return this.http.put(this.services_api + 'update', service);
   }
 }

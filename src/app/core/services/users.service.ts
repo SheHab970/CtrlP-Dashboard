@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -22,6 +22,10 @@ export class UsersService {
   }
   GetUSer(): Observable<any> {
     return this._http.get('https://ctrl-p.runasp.net/api/User/Get-All-Users');
+  }
+  GetUSerDetails(id : number): Observable<any> {
+        const params = new HttpParams().set('id', id);
+    return this._http.get('https://ctrl-p.runasp.net/api/User/User-Details/' ,{params: params});
   }
   toggleUser(id: number): Observable<any> {
     const url = `https://ctrl-p.runasp.net/api/User/ToggleLockUser/${id}`;
